@@ -1,0 +1,14 @@
+@font-face {
+    font-family: 'sanSemi';
+    src: url('../assets/fonts/sanSemi.ttf') format('ttf');
+  }
+
+.container {
+    display: flex;
+}
+
+.container p {
+    font-size: 15px;
+    color: #3E3F40;
+    font-family: sanSemi;
+}

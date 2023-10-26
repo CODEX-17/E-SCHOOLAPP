@@ -1,0 +1,178 @@
+@font-face {
+    font-family: sanBold;
+    src: url('../assets/fonts/sanBold.ttf');
+}
+@font-face {
+    font-family: sanSemi;
+    src: url('../assets/fonts/sanSemi.ttf');
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+
+.navbar {
+    background-color: #0c9cec;
+    height: 50px;
+    width: 100%;
+    display: flex;
+}
+
+.left, .right {
+    width: 50%;
+    height: 100%;
+}
+
+.left {
+    display: flex;
+    align-items: center;
+    padding-left: 20px;
+}
+
+.right {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    position: relative;
+}
+
+#dropDown {
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    justify-content: center;
+    width: 300px;
+    height: 150px;
+    border-radius: 5px;
+    background-color: white;
+    position: absolute;
+    padding: 10px;
+    margin-top: 230px;
+    right: 50px;
+    -webkit-box-shadow: 3px 7px 18px -4px rgba(0,0,0,0.75);
+    -moz-box-shadow: 3px 7px 18px -4px rgba(0,0,0,0.75);
+    box-shadow: 3px 7px 18px -4px rgba(0,0,0,0.75);
+    animation: slideDown 0.5s ease;
+}
+
+
+#profile {
+    width: 35px;
+    height: 35px;
+    color: white;
+    position: absolute;
+    right: 5%;
+}
+
+#icon {
+    width: 30px;
+    height: 30px;
+    color: white;
+}
+
+.horizontal {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.profileIcon {
+    width: 70px;
+    height: 70px;
+    border-radius: 200px;
+    background-color: #3E3F40;
+    border: 1px solid black;
+}
+
+.vertical {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    width: 60%;
+    align-items: start;
+    padding-left: 10px;
+}
+
+.vertical h1 {
+    font-size: 1em;
+    font-family: sanBold;
+    margin: 0;
+    user-select: none;
+}
+
+.vertical h2 {
+    font-size: 0.7em;
+    font-family: sanBold;
+    user-select: none;
+}
+
+.vertical p {
+    color: #3E3F40;
+    font-family: sanSemi;
+    font-size: 0.5em;
+    margin: 0;
+    user-select: none;
+}
+
+.btnLogout {
+    background-color: #0c9cec;
+    color: white;
+    font-family: sanBold;
+    border: none;
+    width: 90%;
+    height: 25%;
+    border-radius: 20px;
+    user-select: none;
+}
+
+.btnLogout:hover {
+    background-color: #3E3F40;
+}
+
+.titleLogo {
+    animation: seesaw 5s infinite;
+    transform-origin: center bottom;
+}
+
+
+@keyframes seesaw {
+    0%, 100% {
+      transform: rotate(0deg);
+    }
+    25% {
+      transform: rotate(-2deg);
+    }
+    50% {
+      transform: rotate(2deg);
+    }
+    75% {
+      transform: rotate(-2deg);
+    }
+  }
+
+@keyframes pop {
+    0% {
+      transform: scale(0.5);
+    }
+    50% {
+      transform: scale(1);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+
+  @keyframes slideDown {
+    0% {
+      transform: translateY(-20%);
+    }
+    100% {
+      transform: translateY(0);
+    }
+  }
+

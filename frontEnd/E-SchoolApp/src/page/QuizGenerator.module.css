@@ -1,0 +1,217 @@
+@font-face {
+    font-family: cuteFont;
+    src: url('../assets/fonts/cute.ttf');
+}
+@font-face {
+    font-family: potatoFont;
+    src: url('../assets/fonts/potato.otf');
+}
+
+#container {
+    background-color: #0c9cec;
+    border-radius: 20px;
+    animation: pop 0.5s ease;
+}
+
+#content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.btnAddQuestion {
+    background-color: #3e3f40;
+    border: none;
+    color: white;
+    padding: 10px;
+    border-radius: 10px;
+    font-family: potatoFont;
+    letter-spacing: 1px;
+}
+
+.btnAddQuestion:hover {
+    background-color: #ffffff;
+    color: #3e3f40;
+}
+
+.title {
+    color: white;
+    font-family: potatoFont;
+    letter-spacing: 3px;
+    font-weight: normal;
+    font-size: 2.2em;
+}
+.quiztitle {
+    color: white;
+    font-size: 1em;
+}
+
+.choicesBox {
+    background-color: #3e3f40;
+    width: 10em;
+    border-radius: 5px;
+    padding: 5px;
+    text-align: center;
+    color: white;
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    justify-content: center;
+}
+.choicesBox h1{
+    margin: 0;
+}
+
+.choicesBox:hover {
+    transform: scale(120%);
+    margin: 20px;
+    cursor: pointer;
+}
+
+.btnRemove {
+    background-color: rgb(165, 28, 28);
+    border-radius: 10px;
+    width: 50px;
+    height: 2em;
+    display: flex;
+    color: white;
+    align-items: center;
+    justify-content: center;
+    font-size: 1em;
+    text-align: center;
+    border: none;
+}
+
+.btnRemove:hover {
+    background-color: rgb(218, 70, 70);
+}
+
+.contentBox {
+    display: flex;
+    gap: 5px;
+    animation: slideDown 0.5s ease;
+    width: auto;
+    height: 50px;
+    background-color: white;
+    border-radius: 10px;
+    padding: 10px;
+    margin-top: 10px;
+    align-items: center;
+    justify-content: center;
+}
+
+#box {
+    background-color: #3e3f40;
+}
+
+#form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.formTextQuiz {
+    background-color: #3e3f40;
+    width: 100%;
+    height: auto;
+    padding: 10px 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-radius: 10px;
+    animation: slideDown 0.5s ease;
+    margin: 10px;
+    position: relative;
+}
+
+.formTextQuiz h1 {
+    font-size: 1em;
+    letter-spacing: 1px;
+
+}
+
+.formTextQuiz .removeFormQuiz {
+    background-color: rgb(165, 28, 28);
+    border-radius: 10px;
+    width: 4em;
+    height: 4em;
+    position: absolute;
+    top: -10px;
+    right: 20px;
+    display: flex;
+    color: white;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.5em;
+    text-align: center;
+    border: none;
+}
+
+.formTextQuiz .removeFormQuiz:hover {
+    background-color: rgb(218, 70, 70);
+    transform: scale(110%);
+}
+
+.formTextQuiz .title {
+    font-size: 2em;
+}
+
+.formTextQuiz .questionNum {
+    font-size: 1.5em;
+    font-family: cuteFont;
+    color: white;
+}
+
+.formTextQuiz .correctAnswerTitle {
+    font-size: 1em;
+    color: white;
+    margin-top: 10px;
+}
+
+.formTextQuiz .inputPoints {
+    border-radius: 10px;
+    border: none;
+    outline: none;
+    text-align: center;
+    width: 10%;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.formTextQuiz .btnAdd {
+    border: none;
+    background-color: #186F65;
+    color: white;
+    width: 50px;
+    height: 35px;
+    border-radius: 10px;
+    position: absolute;
+    right: 20px;
+}
+
+.formTextQuiz .btnAdd:hover {
+    background-color: #3e3f40;
+    transform: scale(110%);
+}
+
+@keyframes pop {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.1);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+
+  @keyframes slideDown {
+    0% {
+      transform: translateY(-100%);
+    }
+    100% {
+      transform: translateY(0);
+    }
+  }

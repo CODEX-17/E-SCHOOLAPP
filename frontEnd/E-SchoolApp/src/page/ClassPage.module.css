@@ -1,0 +1,270 @@
+@font-face {
+    font-family: sanBold;
+    src: url('../assets/fonts/sanBold.ttf');
+}
+@font-face {
+    font-family: sanSemi;
+    src: url('../assets/fonts/sanSemi.ttf');
+}
+
+:root {
+    --blue: #099AED;
+    --gray: #3E3F40;
+    --light: #D9D9D9;
+}
+
+
+.container {
+    width: 95%;
+    height: 95%;
+    font-family: sanSemi;
+    position: relative;
+}
+
+
+.reminder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.reminder h2 {
+    font-size: 15px;
+    opacity: 0.7;
+    user-select: none;
+    animation: fadeIn 1s ease-in-out;
+}
+
+.header {
+    display: flex;
+    position: relative;
+    align-items: center;
+}
+
+.header h1 {
+    color: #3E3F40;
+    font-family: sanBold;
+    font-size: 40px;
+}
+
+.header button {
+    position: absolute;
+    right: 10px;
+    background-color: #099AED;
+    border: none;
+    color: white;
+    width: 224px;
+    height: 39px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-family: sanSemi;
+}
+
+.header button:hover {
+    background-color: #3E3F40;
+}
+
+.content {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.horizontal {
+    display: flex;
+    padding: 10px;
+    width: auto;
+    height: auto;
+    gap: 5%;
+}
+
+.card {
+    background-color: #D9D9D9;
+    width: 385px;
+    height: 315px;
+    border-radius: 20px;
+    padding: 2%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    animation: pop 0.5s ease;
+}
+
+.card h2 {
+    font-size: 20px;
+    color: #3E3F40;
+    font-family: sanSemi;
+}
+
+.card #joinText {
+    font-size: 15px;
+    color: #3E3F40;
+    font-family: sanSemi;
+}
+
+.card button {
+    width: 205px;
+    height: 36px;
+    border-radius: 18px;
+    background-color: #3E3F40;
+    color: white;
+    border: none;
+    font-family: sanSemi;
+    font-size: 14px;
+}
+
+.card button:hover {
+    background-color: transparent;
+    border: 2px solid #3E3F40;
+    color: #3E3F40;
+}
+
+.card input {
+    outline: none;
+    border: none;
+    width: 284px;
+    height: 32px;
+    border-radius: 7px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    text-align: center;
+    font-size: 15px;
+}
+
+#mainTitle {
+    position: absolute;
+    left: 0.5%;
+    top: 0;
+    font-size: 17px;
+    font-family: sanSemi;
+    color: #3E3F40;
+}
+
+
+
+
+/*modal*/
+.modalContainer {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modalContent {
+    background-color: white;
+    position: relative;
+    animation: pop 0.5s ease;
+    width: 804px;
+    height: 431px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 31px;
+    -webkit-box-shadow: 4px 3px 18px 0px rgba(0,0,0,0.24);
+    -moz-box-shadow: 4px 3px 18px 0px rgba(0,0,0,0.24);
+    box-shadow: 4px 3px 18px 0px rgba(0,0,0,0.24);
+    padding: 2%;
+}
+
+.modalContent h1 {
+    font-family: sanBold;
+    font-size: 20px;
+    color: #3E3F40;
+    user-select: none;
+}
+
+.modalContent p {
+    font-family: sanSemi;
+    font-size: 13px;
+    color: #3E3F40;
+    user-select: none;
+    margin-bottom: 5%;
+}
+
+.modalContent input {
+    background-color: #EFECEC;
+    border: none;
+    outline: none;
+    height: 48px;
+    padding: 10px;
+    font-size: 15px;
+    color: #3E3F40;
+    border-radius: 10px;
+}
+
+#desInput {
+    background-color: #EFECEC;
+    border: none;
+    outline: none;
+    height: 86px;
+    text-align: start;
+    padding: 2%;
+    resize: none;
+    font-size: 15px;
+    color: #3E3F40;
+    border-radius: 10px;
+}
+
+.horMenu {
+    display: flex;
+    position: absolute;
+    bottom: 5%;
+    right: 4%;
+    gap: 5%;
+}
+
+.horMenu button {
+    width: 80px;
+    height: 32px;
+    border-radius: 6px;
+    color: white;
+    background-color: #099AED;
+    border: none;
+    font-size: 12px;
+}
+
+.horMenu button:hover, #btnCancel:hover {
+    background-color: #3E3F40;
+    color: white;
+    border: none;
+}
+
+#btnCancel {
+    background-color: white;
+    border: 2px solid #099AED;
+    color: #099AED;
+}
+
+
+
+@keyframes pop {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.1);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }

@@ -1,0 +1,584 @@
+@font-face {
+    font-family: sanBold;
+    src: url('../assets/fonts/sanBold.ttf');
+}
+@font-face {
+    font-family: sanSemi;
+    src: url('../assets/fonts/sanSemi.ttf');
+}
+
+.container {
+    width: 60%;
+    height: 80%;
+    background-color: white;
+    border-radius: 50px;
+    box-shadow: 0px 2px 14px -1px rgba(0,0,0,0.49);
+    -webkit-box-shadow: 0px 2px 14px -1px rgba(0,0,0,0.49);
+    -moz-box-shadow: 0px 2px 14px -1px rgba(0,0,0,0.49);
+    padding: 3.5%;
+    position: relative;
+}
+
+.content {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    
+}
+
+.content .left {
+    flex: 40%;
+    /* border: 2px solid red; */
+    padding-top: 2%;
+    padding-left: 2%;
+    padding-right: 2%;
+ }
+ 
+.left h1 {
+    color: #099AED;
+    font-family: sanBold;
+}
+
+#h2Top {
+    margin-top: 10%;
+}
+
+.left h2 {
+    color: #3E3F40;
+    font-family: sanSemi;
+    font-size: 15px;
+}
+
+.left p {
+    font-family: sanSemi;
+    font-size: 10px;
+    margin-left: 10px;
+}
+
+.left #inputOne {
+    background-color: #EFECEC;
+    border: none;
+    width: 364px;
+    height: 41px;
+    outline: none;
+    border-radius: 15px;
+    padding-left: 20px;
+    font-family: sanSemi;
+    font-size: 15px;
+}
+
+.left #inputTwo {
+    background-color: #EFECEC;
+    border: none;
+    width: 364px;
+    height: 99px;
+    outline: none;
+    border-radius: 15px;
+    font-family: sanSemi;
+    text-align: start;
+    padding: 20px;
+    font-size: 15px;
+    resize: none;
+}
+
+.left .miniDash {
+    background-color: #099AED;
+    width: 364px;
+    height: 193px;
+    border-radius: 25px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    margin-top: 10%;
+}
+
+.miniDash .topDash {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: auto;
+}
+
+.miniDash .leftDash, .miniDash .rightDash {
+    flex: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: sanSemi;
+}
+
+#dashTitle {
+    color: white;
+    font-family: sanSemi;
+    font-size: 12px;
+}
+
+#dashContent {
+    color: white;
+    font-family: sanSemi;
+    font-size: 20px;
+}
+
+.miniDash .botDash {
+    background-color: #3E3F40;
+    flex: 20%;
+    display: flex;
+    margin-bottom: 10px;
+    width: 338px;
+    height: 63px;
+    border-radius: 10px;
+}
+
+.botDash .dashDetails {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex: 33%;
+}
+
+#detailTitle {
+    color: white;
+    font-family: sanSemi;
+    font-size: 10px;
+}
+
+#detailContent {
+    color: white;
+    font-family: sanSemi;
+    font-size: 15px;
+}
+
+
+
+
+
+
+
+
+
+
+
+.content .right {
+    flex: 60%;
+    border-left: 2px solid #dddbdb;
+    padding-left: 5%;
+    position: relative;
+ }
+
+ .horizontal {
+    display: flex;
+    align-items: center;
+    gap: 55%;
+ }
+
+ .horizontal .btnAddQuiz {
+    background-color: #099AED;
+    color: white;
+    font-family: sanSemi;
+    border-radius: 9px;
+    width: 146px;
+    height: 43px;
+    border: none;
+ }
+
+ .horizontal .btnAddQuiz:hover {
+    background-color: #3E3F40;
+ }
+
+ .horizontal h1 {
+    color: #099AED;
+    font-family: sanSemi;
+    font-size: 15px;
+    cursor: pointer;
+ }
+
+ .horizontal h1:hover {
+    color: #3E3F40;
+ }
+
+ .menu {
+    display: flex;
+    gap: 5%;
+    margin-top: 3%;
+    animation: slideDown 0.3s ease-in-out;
+}
+
+.menu .btnMenu {
+    background-color: white;
+    border: 2px solid #099AED;
+    width: 124px;
+    height: 28px;
+    border-radius: 15px;
+    color: #099AED;
+    font-size: 13px;
+}
+
+.menu .btnMenu:hover {
+    background-color: #3E3F40;
+    color: white;
+    border: none;
+}
+
+.quizContainer {
+    background-color: #EFECEC;
+    width: 507px;
+    height: 450px;
+    border-radius: 12px;
+    margin-top: 2%;
+    padding: 5%;
+    position: relative;
+    animation: pop 0.3s ease-in-out;
+}
+
+.quizForm {
+  display: flex;
+  flex-direction: column;
+}
+
+.quizForm h1 {
+    color: #3E3F40;
+    font-size: 32px;
+    font-family: sanBold;
+}
+
+.horLabel {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 5%;
+    width: 95%;
+}
+
+.horLabel h2 {
+    color: #3E3F40;
+    font-size: 14px;
+}
+
+.inputWithImage {
+    position: relative;
+}
+
+.inputWithImage .icon {
+    position: absolute;
+    color:#099AED;
+    width: 25px;
+    height: 25px;
+    bottom: 10%;
+    right: 5%;
+}
+
+.inputWithImage .icon:hover {
+    color: #3E3F40;
+    transform: scale(110%);
+}
+
+.quizForm .quesField {
+    color: #3E3F40;
+    font-family: sanSemi;
+    font-size: 14px;
+    background-color: white;
+    width: 440px;
+    height: 77px;
+    border: none;
+    border-radius: 11px;
+    outline: none;
+    padding: 20px;
+    resize: none;
+}
+
+#ansLabel {
+    margin-top: 5%;
+    color: #3E3F40;
+    font-size: 14px;
+}
+
+.horizontalMenus {
+    display: flex;
+    margin-top: 3%;
+    align-items: center;
+    gap: 1%;
+    margin-left: 5%;
+}
+
+.horizontalMenus h2 {
+    color: #3E3F40;
+    font-size: 11px;
+    margin: 0;
+}
+
+.horizontalMenus #pointsField {
+    color: #3E3F40;
+    background-color: white;
+    border: none;
+    border-radius: 4px;
+    width: 53px;
+    height: 18px;
+    outline: none;
+    padding-left: 10px;
+}
+
+.quizForm .btnAdd {
+    border: none;
+    background-color: #099AED;
+    color: white;
+    width: 83px;
+    height: 30px;
+    border-radius: 15px;
+    font-family: sanSemi;
+    font-size: 12px;
+    position: absolute;
+    right: 7%;
+    bottom: 5%;
+}
+
+.quizForm .btnAdd:hover {
+    background-color: #3E3F40;
+}
+
+
+
+.btnSave {
+    border: none;
+    background-color: #3E3F40;
+    color: white;
+    width: 112px;
+    height: 39px;
+    border-radius: 15px;
+    font-family: sanSemi;
+    font-size: 12px;
+    position: absolute;
+    bottom: 5%;
+    right: 6%;
+}
+.btnSave:hover {
+    background-color: #099AED;
+}
+
+choicesList
+
+[data-title]::before {
+    content: attr(data-title);
+    background-color: #cc9f9f;
+    color: #fff;
+    padding: 5px;
+    border-radius: 5px;
+    position: absolute;
+    z-index: 1;
+    opacity: 0;
+    transition: opacity 0.3s;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  
+  /* Show the tooltip on hover */
+  [data-title]:hover::before {
+    opacity: 1;
+  }
+
+
+
+  /* CHOICES FORM LAYOUT */
+
+  #choicesTitle {
+    color: #3E3F40;
+    font-size: 20px;
+    font-family: sanBold;
+  }
+
+  #form {
+    align-items: start;
+    display: flex;
+    flex-direction: column;
+  }
+
+  #answerLabel {
+    color: #3E3F40;
+    font-size: 13px;
+    font-family: sanSemi;
+    margin-top: 2%;
+  }
+
+  .btnAddChoices {
+    color: #099AED;
+    width: 25px;
+    height: 25px;
+    transition: transform 0.3s ease;
+  }
+
+  .btnAddChoices:hover {
+    color: #3E3F40;
+    transform: rotate(45deg);
+  }
+
+
+  .horizontalLabel {
+    display: flex;
+    justify-content: space-between;
+    width: 95%;
+    margin-top: 1%;
+  }
+
+  .horizontalLabel h2 {
+    color: #3E3F40;
+    font-size: 13px;
+    font-family: sanSemi;
+  }
+
+  .footer {
+    position: absolute;
+    width: 90%;
+    bottom: 5%;
+  }
+
+  .footerMenu {
+    display: flex;
+    background-color: #D9D9D9;
+    align-items: center;
+    justify-content: start;
+    padding-left: 5%;
+    gap: 1%;
+    height: 40px;
+    width: 100%;
+    border-radius: 6px;
+    position: relative;
+  }
+
+  .footerMenu h2 {
+    color: #3E3F40;
+    font-size: 11px;
+    margin: 0;
+    font-family: sanSemi;
+  }
+
+
+  .footerMenu .pointsField {
+    color: #3E3F40;
+    background-color: white;
+    border: none;
+    border-radius: 4px;
+    width: 53px;
+    height: 18px;
+    outline: none;
+    padding-left: 10px;
+  }
+
+  .footerMenu #btnAdd {
+    border: none;
+    background-color: #099AED;
+    color: white;
+    width: 83px;
+    height: 30px;
+    border-radius: 15px;
+    font-family: sanSemi;
+    font-size: 12px;
+    position: absolute;
+    right: 5%;
+    transition: transform 0.5s ease;
+  }
+
+  .footerMenu #btnAdd:hover {
+    background-color: #3E3F40;
+  }
+
+  .choicesItems {
+    display: flex;
+    gap: 1.5%;
+  }
+
+  .answerField {
+    border: none;
+    padding-left: 2%;
+    border-radius: 14px;
+    width: 360px;
+    height: 28px;
+    outline: none;
+    font-size: 11px;
+    font-family: sanSemi;
+  }
+
+  .check {
+    color:#099AED;
+    width: 25px;
+    height: 25px;
+  }
+
+  .done {
+    background-color: #3E3F40;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 11px;
+    font-family: sanSemi;
+  }
+
+  .done:hover {
+    background-color: #099AED;
+  }
+
+  .listFinalChoices {
+    width: 100%;
+    height: 130px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 5%;
+    overflow-y: scroll;
+
+  }
+
+  .finalChoicesItem {
+    background-color: transparent;
+    border: 2px solid #3E3F40;
+    padding: 1%;
+    width: 70%;
+    font-size: 14px;
+    font-family: sanSemi;
+    color: #3E3F40;
+    border-radius: 5px;
+    padding-left: 3%;
+    margin-top: 1%;
+    margin-bottom: 1%;
+  }
+
+  #letter {
+    color: #3E3F40;
+    font-size: 19px;
+    margin: 0;
+    margin-right: 2%;
+  }
+
+
+
+
+
+
+
+
+
+
+@keyframes pop {
+    0% {
+      transform: scale(0.5);
+    }
+    50% {
+      transform: scale(1);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+
+  @keyframes slideDown {
+    0% {
+      transform: translateY(-100%);
+    }
+    100% {
+      transform: translateY(0);
+    }
+  }
+
+
+
+
+

@@ -1,0 +1,258 @@
+@font-face {
+    font-family: cuteFont;
+    src: url('../assets/fonts/cute.ttf');
+}
+@font-face {
+    font-family: potatoFont;
+    src: url('../assets/fonts/potato.otf');
+}
+
+.container {
+    background-color: #0c9cec;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.content {
+    width: 90%;
+    height: 90%;
+    position: absolute;
+    background-image: url('../assets/content-background.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: slideLeftToRight 0.5s ease-in-out;
+}
+
+.content .left, .right {
+    width: 30%;
+    height: 80%;
+}
+
+.left {
+    display: flex;
+    align-items: center;
+    padding-left: 5%;
+    /* animation: pop 1s ease-in-out; */
+    animation: shake 1s ease-in;
+}
+
+.right {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.right .top, .right .bot {
+    /* border: 2px solid red; */
+    width: 100%;
+    height: 100%;
+}
+
+.right .top {
+    display: flex;
+    height: auto;
+    padding-top: 100px;
+    align-items: center;
+    color: #0c9cec;
+    flex-direction: column;
+}
+
+.right .bot {
+    display: flex;
+    padding-bottom: 100px;
+    justify-content: center;
+}
+
+.right .top #title {
+    font-family: potatoFont;
+    font-size: 5em;
+
+    letter-spacing: 5px;
+    margin: 0;
+}
+
+.right .top #subtitle {
+    margin-top: -20px;
+    margin-right: -100px;
+    font-family: cuteFont;
+    font-size: 1.5em;
+}
+
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.inputDiv {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    color: white;
+    justify-content: center;
+    align-items: center;
+}
+
+.inputDiv input {
+    background-color: transparent;
+    width: 15em;
+    outline: none;
+    border-top: 1px black;
+    border-left: 1px black;
+    border-right: 1px black;
+    border-bottom: 3px solid #0c9cec;
+    font-size: 1.1em;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-family: sans-serif;
+    color: #0c9cec;
+}
+.inputDiv input::placeholder {
+    color: #0c9cec;
+    font-family: cuteFont;
+}
+
+.btn {
+    background-color: #3e3f40;
+    border: none;
+    font-size: 1.3em;
+    font-family: potatoFont;
+    color: #ffffff;
+    padding: 10px;
+    letter-spacing: 1px;
+    border-radius: 20px;
+    width: 60%;
+    outline: none;
+    margin-top: 10px;
+    animation: pop 2s ease-in-out;
+}
+
+.btn:hover {
+    background-color: #0c9cec;
+}
+
+.horizontalDiv {
+    font-family: cuteFont;
+    color: white;
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+    align-items: center;
+    justify-content: center;
+}
+
+#checkbox {
+    border: none;
+    background-color: #0c9cec;
+    width: 20px;
+    outline: none;
+}
+
+#label {
+    font-size: 1em;
+    white-space: nowrap;
+    color: #3e3f40;
+    font-family: cuteFont;
+}
+
+#errorMessage {
+    color: red;
+    font-family: cuteFont;
+    margin-top: -10px;
+    font-size: 1em;
+
+}
+
+#title {
+    animation: bounce 2s infinite;
+}
+
+.footer {
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    color: white;
+    letter-spacing: 2px;
+    font-family: cuteFont;
+    text-align: center;
+    animation: fade 2s ease-in; 
+}
+
+.errorMessage {
+  margin-top: 20px;
+  color: red;
+  font-family: cuteFont;
+  animation: shake 1s ease-in;
+}
+
+@keyframes shake {
+    0%, 100% {
+      transform: translateX(0); /* Start and end with no horizontal translation */
+    }
+    10%, 30%, 50%, 70%, 90% {
+      transform: translateX(-10px); /* Shake to the left at specified intervals */
+    }
+    20%, 40%, 60%, 80% {
+      transform: translateX(10px); /* Shake to the right at specified intervals */
+    }
+  }
+  
+
+@keyframes bounce {
+    0%, 100% {
+      transform: translateY(0); /* Start and end with no vertical translation */
+    }
+    25% {
+      transform: translateY(-20px); /* Bounce up at 25% */
+    }
+    50% {
+      transform: translateY(0); /* Return to the original position at 50% */
+    }
+    75% {
+      transform: translateY(-10px); /* Bounce up again at 75% */
+    }
+  }
+
+@keyframes slideLeftToRight {
+    0% {
+      transform: translateX(-100%);
+    }
+    100% {
+      transform: translateX(0);
+    }
+  }
+
+@keyframes pop {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.2);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+
+  @keyframes fade {
+    0% {
+      opacity: 0; /* Start with 0 opacity (invisible) */
+    }
+    50% {
+      opacity: 1; /* Fade in by changing opacity to 1 at 50% of the animation */
+    }
+    100% {
+      opacity: 0; /* Fade out by changing opacity back to 0 at 100% of the animation */
+    }
+  }
