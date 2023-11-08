@@ -5,7 +5,7 @@
 @font-face {
     font-family: sanSemi;
     src: url('../assets/fonts/sanSemi.ttf');
-}
+} 
 
 :root {
     --blue: #099AED;
@@ -48,6 +48,7 @@
     color: #3E3F40;
     font-family: sanBold;
     font-size: 40px;
+    user-select: none;
 }
 
 .header button {
@@ -73,7 +74,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    position: relative;
+    position: absolute;
 }
 
 .horizontal {
@@ -141,7 +142,7 @@
 #mainTitle {
     position: absolute;
     left: 0.5%;
-    top: 0;
+    top: 10%;
     font-size: 17px;
     font-family: sanSemi;
     color: #3E3F40;
@@ -173,17 +174,17 @@
     -webkit-box-shadow: 4px 3px 18px 0px rgba(0,0,0,0.24);
     -moz-box-shadow: 4px 3px 18px 0px rgba(0,0,0,0.24);
     box-shadow: 4px 3px 18px 0px rgba(0,0,0,0.24);
-    padding: 2%;
+    padding: 5%;
 }
 
-.modalContent h1 {
+form .modalContent h1 {
     font-family: sanBold;
     font-size: 20px;
     color: #3E3F40;
     user-select: none;
 }
 
-.modalContent p {
+form .modalContent p {
     font-family: sanSemi;
     font-size: 13px;
     color: #3E3F40;
@@ -191,7 +192,7 @@
     margin-bottom: 5%;
 }
 
-.modalContent input {
+form .modalContent input {
     background-color: #EFECEC;
     border: none;
     outline: none;
@@ -244,6 +245,90 @@
     border: 2px solid #099AED;
     color: #099AED;
 }
+
+.listContainer {
+    font-family: sanSemi;
+    color: #3E3F40;
+    height: 90%;
+    padding: 2%;
+}
+
+#classListLabel {
+    font-size: 15px;
+    user-select: none;
+}
+
+.classVisible, .classHidden {
+    height: auto;
+}
+
+.classHidden {
+    margin-top: 2%;
+}
+
+.horizontalList {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2%;
+}
+
+.classCard {
+    background-color: #D9D9D9;
+    width: calc(15% - 10px); /* 50% width with spacing in between */
+    height: 150px;
+    margin: calc(1% - 5px);
+    border-radius: 14px;
+    padding: 1%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    animation: pop 0.5s ease;
+}
+
+.classCard:hover {
+    transform: scale(105%);
+    color: white;
+}
+
+.btnVisible {
+    position: absolute;
+    right: 5%;
+    top: 5%;
+    color: #9b9999;
+}
+
+.btnVisible:hover {
+    color: white;
+    transform: scale(110%);
+}
+
+#imageContainer {
+    width: 30%;
+    height: 55%;
+    border-radius: 100px;
+    background-color: #3E3F40;
+    text-align: center;
+
+}
+
+.classCard h1 {
+    font-size: 15px;
+    font-family: sanBold;
+    margin-top: 5%;
+    margin-bottom: 0;
+}
+
+.classCard p {
+    font-size: 10px;
+    margin: 0;
+}
+
+
+
+
+
 
 
 

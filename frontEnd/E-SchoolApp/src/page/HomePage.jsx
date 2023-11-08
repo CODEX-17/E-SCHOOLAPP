@@ -8,6 +8,8 @@ import QuizGenerator from './QuizGenerator'
 import { useNavigateStore } from '../stores/useNavigateStore'
 import { Quiz } from './Quiz'
 import ClassPage from './ClassPage'
+import PreviewQuiz from './PreviewQuiz'
+import ChatPage from './ChatPage'
 
 
 const HomePage = () => {
@@ -31,9 +33,11 @@ const HomePage = () => {
           </div>
           <div className={style.right}>
             {routeChoose === 'quiz' && <QuizGenerator/>}
+            {routeChoose === 'chat' && <ChatPage/>}
             {routeChoose === 'createUser' && <CreateUser/>}
             {routeChoose === 'quizDev' && <Quiz/>}
             {routeChoose === 'class' && <ClassPage/>}
+            {routeChoose === 'previewQuiz' && <PreviewQuiz/>}
 
             {/* { 
               isToastOpen && (
