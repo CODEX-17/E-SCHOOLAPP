@@ -53,19 +53,39 @@
     padding: 10px;
     margin-top: 230px;
     right: 50px;
-    -webkit-box-shadow: 3px 7px 18px -4px rgba(0,0,0,0.75);
-    -moz-box-shadow: 3px 7px 18px -4px rgba(0,0,0,0.75);
-    box-shadow: 3px 7px 18px -4px rgba(0,0,0,0.75);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     animation: slideDown 0.5s ease;
+}
+
+.menuTop {
+  position: absolute;
+  width: 20%;
+  right: 5%;
+  display: flex;
+  justify-content: end;
+  align-items: center;
 }
 
 
 #profile {
+    margin-left: 10%;
     width: 35px;
     height: 35px;
     color: white;
-    position: absolute;
-    right: 5%;
+    border-radius: 50%;
+    background-color: white;
+    cursor: pointer;
+}
+
+#notif {
+  color: white;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+
+#notif:hover {
+  transform: scale(110%);
 }
 
 #icon {
@@ -84,9 +104,18 @@
 .profileIcon {
     width: 70px;
     height: 70px;
-    border-radius: 200px;
+    border-radius: 70px;
     background-color: #3E3F40;
     border: 1px solid black;
+    overflow: hidden;
+    border: 1px solid #3E3F40;
+}
+
+#profilePic {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border: none;
 }
 
 .vertical {
@@ -124,14 +153,35 @@
     color: white;
     font-family: sanBold;
     border: none;
-    width: 90%;
-    height: 25%;
-    border-radius: 20px;
+    padding: 2%;
+    width: 40%;
+    height: 100%;
+    font-size: 8pt;
+    border-radius: 10px;
     user-select: none;
 }
 
 .btnLogout:hover {
     background-color: #3E3F40;
+}
+
+.btnManageAcct {
+  color: #0c9cec;
+  font-family: sanBold;
+  border: 1px solid #0c9cec;
+  padding: 2%;
+  width: 40%;
+  height: 100%;
+  font-size: 7pt;
+  border-radius: 10px;
+  user-select: none;
+  background-color: transparent;
+}
+
+.btnManageAcct:hover {
+  background-color: #0c9cec;
+  color: white;
+  border: none;
 }
 
 .titleLogo {

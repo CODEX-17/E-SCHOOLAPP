@@ -9,7 +9,7 @@
 
 .container {
     width: 60%;
-    height: 80%;
+    height: auto;
     background-color: white;
     border-radius: 50px;
     box-shadow: 0px 2px 14px -1px rgba(0,0,0,0.49);
@@ -17,30 +17,47 @@
     -moz-box-shadow: 0px 2px 14px -1px rgba(0,0,0,0.49);
     padding: 3.5%;
     position: relative;
+    animation: pop 0.5s ease;
+}
+
+#previewQuiz, .ListPreviewQuiz {
+  animation: fade 0.5s ease;
 }
 
 .content {
+    position: relative;
     width: 100%;
     height: 100%;
     display: flex;
-    
+}
+
+#select {
+  font-family: sanSemi;
+  color: #3E3F40;
+  font-size: 10pt;
+}
+
+#option {
+  font-family: sanSemi;
+  color: #3E3F40;
+  font-size: 10pt;
 }
 
 .content .left {
     flex: 40%;
-    /* border: 2px solid red; */
-    padding-top: 2%;
-    padding-left: 2%;
-    padding-right: 2%;
+    padding: 1%;
+    width: auto;
+    height: auto;
  }
  
 .left h1 {
     color: #099AED;
     font-family: sanBold;
+    margin: 0;
 }
 
 #h2Top {
-    margin-top: 10%;
+    margin-top: 5%;
 }
 
 .left h2 {
@@ -83,43 +100,62 @@
 
 .left .miniDash {
     background-color: #099AED;
-    width: 364px;
-    height: 193px;
-    border-radius: 25px;
-    padding: 10px;
+    width: auto;
+    height: auto;
+    border-radius: 15px;
+    padding: 3%;
     display: flex;
     flex-direction: column;
-    margin-top: 10%;
+    justify-content: center;
+    align-items: center;
+    margin-top: 5%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .miniDash .topDash {
     display: flex;
     justify-content: center;
     align-items: center;
-    flex: auto;
+    width: 100%;
+    margin-top: 2%;
     position: relative;
 }
 
-#quizTitle {
-  color: white;
-  font-size: 12px;
-  font-family: sanSemi;
-  position: absolute;
-  top: 0;
-}
 
-.miniDash .leftDash, .miniDash .rightDash {
-    flex: 50%;
+.leftDash, .rightDash {
+    width: 50%;
+    height: auto;
     display: flex;
     flex-direction: column;
     align-items: center;
     font-family: sanSemi;
 }
 
+#divTitle {
+  background-color: white;
+  border-radius: 20px;
+  padding: 2%;
+  height: auto;
+  width: 50%;
+  text-align: center;
+}
+
+#quizTitle {
+  color: #099AED;
+  font-size: 12px;
+  font-family: sanBold;
+}
+
+#iconImageChoices {
+    color:#099AED;
+    width: 25px;
+    height: 25px;
+}
+
 #dashTitle {
     color: white;
     font-family: sanSemi;
-    font-size: 12px;
+    font-size: 8pt;
 }
 
 #dashContent {
@@ -131,6 +167,7 @@
 .miniDash .botDash {
     background-color: #3E3F40;
     flex: 20%;
+    padding: 2%;
     display: flex;
     margin-bottom: 10px;
     width: 338px;
@@ -179,7 +216,7 @@
 .content .right {
     flex: 60%;
     border-left: 2px solid #dddbdb;
-    padding-left: 5%;
+    padding-left: 3%;
     position: relative;
  }
 
@@ -208,6 +245,8 @@
     font-family: sanSemi;
     font-size: 15px;
     cursor: pointer;
+    position: absolute;
+    right: 8%;
  }
 
  .horizontal h1:hover {
@@ -216,7 +255,7 @@
 
  .menu {
     display: flex;
-    gap: 5%;
+    gap: 1%;
     margin-top: 3%;
     animation: slideDown 0.3s ease-in-out;
 }
@@ -237,6 +276,16 @@
     border: none;
 }
 
+.btnMenuActived {
+  background-color: #3E3F40;
+  width: 124px;
+  height: 28px;
+  border-radius: 15px;
+  color: #ffffff;
+  font-size: 13px;
+  border: none;
+}
+
 .quizContainer {
     background-color: #EFECEC;
     width: 507px;
@@ -246,11 +295,23 @@
     padding: 5%;
     position: relative;
     animation: pop 0.3s ease-in-out;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .quizForm {
   display: flex;
   flex-direction: column;
+  width: 100%;
+  height: 1005;
+}
+
+#thumbnail {
+  width: 30px;
+  height: 30px;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  background-color: #3E3F40;
+  animation: pop 0.5s ease;
 }
 
 .quizForm h1 {
@@ -266,27 +327,160 @@
     width: 95%;
 }
 
+
+.fillContainer {
+  background-color: #EFECEC;
+  width: 507px;
+  height: 450px;
+  border-radius: 12px;
+  margin-top: 2%;
+  padding: 5%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  animation: pop 0.3s ease-in-out;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.fillContent {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
 .horLabel h2 {
     color: #3E3F40;
     font-size: 14px;
 }
 
-.inputWithImage {
-    position: relative;
-}
 
-.inputWithImage .icon {
-    position: absolute;
-    color:#099AED;
-    width: 25px;
-    height: 25px;
-    bottom: 10%;
-    right: 5%;
-}
-
-.inputWithImage .icon:hover {
+#iconImageChoices:hover {
     color: #3E3F40;
     transform: scale(110%);
+}
+
+#formControl {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+} 
+
+.textareaDiv {
+  display: flex;
+  align-items: end;
+  width: 100%;
+  background-color: rgb(255, 255, 255);
+  border-radius: 11px;
+  padding: 2%;
+}
+
+.questionFillContainer {
+  background-color: #cccaca;
+  border-radius: 5px;
+  padding: 1%;
+  width: 100%;
+  font-family: sanSemi;
+  display: flex;
+  position: relative;
+}
+
+.btnBlankInsert {
+  background-color: #099AED;
+  color: white;
+  border: none;
+  font-size: 10pt;
+  width: 150px;
+  height: 50px;
+  padding: 1%;
+  margin-top: 2%;
+  border-radius: 10px;
+  font-family: sanSemi;
+}
+
+#iconfillQuiz {
+    color:#099AED;
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    right: 2%;
+    bottom: 5%;
+    z-index: 2;
+    cursor: pointer;
+}
+
+#btnAddFill:hover {
+  color: #777575;
+}
+
+.fillContentQues {
+  width: 95%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1%;
+  align-items: center;
+  padding: 2px;
+}
+
+.fillContentQues h2 {
+  color: #3E3F40;
+  font-size: 10pt;
+  margin: 0;
+  user-select: none;
+}
+
+#fillBlank {
+  width: auto;
+  font-size: 10pt;
+  color: #099AED;
+  margin: 1%;
+}
+
+.fillDiv {
+  display: flex;
+}
+
+#btnFront {
+  background-color: #3E3F40;
+  color: white;
+  border: none;
+  width: 100px;
+  height: 40px;
+  font-family: sanSemi;
+  border-radius: 10px 0px 0px 10px;
+}
+
+#btnBack {
+  background-color: #508D69;
+  color: white;
+  border: none;
+  width: 100px;
+  height: 40px;
+  font-family: sanSemi;
+  border-radius: 0px 10px 10px 0px;
+}
+
+#inputContentF {
+  width: 100%;
+  padding-left: 2%;
+  font-family: sanSemi;
+  outline: none;
+  font-size: 10pt;
+}
+
+.generatorFillLayout {
+  margin-top: 2%;
+  width: 100%;
+  height: 150px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.generatorFillLayout h2 {
+  color: #3E3F40;
+  font-size: 10pt;
 }
 
 .quizForm .quesField {
@@ -294,12 +488,12 @@
     font-family: sanSemi;
     font-size: 14px;
     background-color: white;
-    width: 440px;
+    padding: 2%;
+    width: 100%;
     height: 77px;
     border: none;
     border-radius: 11px;
     outline: none;
-    padding: 20px;
     resize: none;
 }
 
@@ -363,15 +557,15 @@
     border-radius: 15px;
     font-family: sanSemi;
     font-size: 12px;
-    position: absolute;
-    bottom: 5%;
-    right: 6%;
-}
-.btnSave:hover {
-    background-color: #099AED;
 }
 
-choicesList
+.btnSave:disabled {
+  opacity: 0.2;
+}
+
+.btnSave:not(:disabled):hover {
+    background-color: #099AED;
+}
 
 [data-title]::before {
     content: attr(data-title);
@@ -500,6 +694,7 @@ choicesList
 
   .choicesItems {
     display: flex;
+    width: 100%;
     gap: 1.5%;
   }
 
@@ -507,11 +702,38 @@ choicesList
     border: none;
     padding-left: 2%;
     border-radius: 14px;
-    width: 360px;
+    width: 100%;
     height: 28px;
     outline: none;
     font-size: 11px;
     font-family: sanSemi;
+  }
+
+
+  .exitTrapNotif {
+    animation: pop 0.5s ease;
+    background-color: #ffffff;
+    position: absolute;
+    width: 30%;
+    height: 30%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    padding: 2%;
+    border-radius: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 3;
+    gap: 5%;
+  }
+
+  .menuButtons {
+    display: flex;
+    gap: 2%;
+    width: 98%;
+    justify-content: end;
+    padding: 2%;
   }
 
   .check {
@@ -539,7 +761,7 @@ choicesList
     position: relative;
     display: flex;
     flex-direction: column;
-    margin-bottom: 5%;
+    margin-bottom: 1%;
     overflow-y: scroll;
 
   }
@@ -571,10 +793,11 @@ choicesList
     background-color: #3E3F40;
     border-radius: 10px;
     padding: 5%;
-    width: 100%;
+    width: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     height: auto;
-    top: 30%;
-    right: 50%;
     z-index: 3;
     color: white;
     display: flex;
@@ -584,6 +807,32 @@ choicesList
     animation: pop 0.5s ease;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 4px 6px rgba(0, 0, 0, 0.2);
   }
+
+.btnTORF {
+    border: none;
+    background-color: #737070;
+    color: white;
+    width: 100px;
+    padding: 1%;
+    border-radius: 10px;
+}
+
+.btnTORFActive {
+    border: none;
+    background-color: #099AED;
+    color: white;
+    width: 100px;
+    padding: 1%;
+    border-radius: 10px;
+}
+
+.btnTORF:hover {
+  background-color: #a5a2a2;
+}
+
+#trueFalseLabel {
+  font-size: 17pt;
+}
 
 
 

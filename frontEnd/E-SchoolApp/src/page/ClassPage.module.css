@@ -77,6 +77,8 @@
     position: absolute;
 }
 
+
+
 .horizontal {
     display: flex;
     padding: 10px;
@@ -92,10 +94,25 @@
     border-radius: 20px;
     padding: 2%;
     display: flex;
+    position: relative;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     animation: pop 0.5s ease;
+    box-shadow: 0 4px 8px rgba(171, 133, 133, 0.2);
+    animation: fadeIn 0.5s ease;
+}
+
+#iconExit {
+    color: #3E3F40;
+    position: absolute;
+    top: 5%;
+    right: 5%;
+    cursor: pointer;
+}
+
+#iconExit:hover {
+    transform: scale(110%);
 }
 
 .card h2 {
@@ -137,6 +154,12 @@
     margin-top: 10px;
     text-align: center;
     font-size: 15px;
+}
+
+#importExcelFile {
+    margin: 0;
+    padding-left: 10%;
+    margin-bottom: 5%;
 }
 
 #mainTitle {
@@ -285,11 +308,11 @@ form .modalContent input {
     justify-content: center;
     position: relative;
     animation: pop 0.5s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .classCard:hover {
     transform: scale(105%);
-    color: white;
 }
 
 .btnVisible {
@@ -297,6 +320,8 @@ form .modalContent input {
     right: 5%;
     top: 5%;
     color: #9b9999;
+    z-index: 1;
+    cursor: pointer;
 }
 
 .btnVisible:hover {
@@ -305,12 +330,11 @@ form .modalContent input {
 }
 
 #imageContainer {
-    width: 30%;
-    height: 55%;
-    border-radius: 100px;
-    background-color: #3E3F40;
+    width: 80px;
+    height: 80px;
+    border-radius: 80px;
     text-align: center;
-
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .classCard h1 {
@@ -318,17 +342,22 @@ form .modalContent input {
     font-family: sanBold;
     margin-top: 5%;
     margin-bottom: 0;
+    user-select: none;
 }
 
 .classCard p {
     font-size: 10px;
     margin: 0;
+    user-select: none;
 }
 
-
-
-
-
+.mainPoint {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
 
 
 

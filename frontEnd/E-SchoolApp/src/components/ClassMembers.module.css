@@ -1,0 +1,152 @@
+@font-face {
+    font-family: sanBold;
+    src: url('../assets/fonts/sanBold.ttf');
+}
+@font-face {
+    font-family: sanSemi;
+    src: url('../assets/fonts/sanSemi.ttf');
+}
+
+.container {
+    width: 100%;
+    height: 100%;
+    font-size: 10pt;
+    color: #3E3F40;
+    font-family: sanSemi;
+    position: relative;
+}
+
+#btnExit {
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    cursor: pointer;
+}
+
+.addMembers {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+
+.addMembers:hover {
+  transform: scale(110%);
+}
+
+#btnExit:hover {
+    transform: scale(110%);
+}
+
+.container h2 {
+    margin: 0;
+    font-size: 20pt;
+    font-family: sanBold;
+}
+
+.head {
+    display: flex;
+    flex-direction: column;
+}
+
+.head h2, #memberLabel {
+    font-size: 13pt;
+    font-family: sanSemi;
+    margin: 0;
+}
+
+#labelAdmin {
+    margin-top: 2%;
+}
+
+.listView {
+    width: 100%;
+    height: 600px;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+}
+
+.card {
+    background-color: #099AED;
+    width: 20%;
+    padding: 1%;
+    display: flex;
+    align-items: center;
+    gap: 2%;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.cardMember {
+    background-color: #6f6d6d;
+    width: 30%;
+    padding: 1%;
+    display: flex;
+    align-items: center;
+    gap: 2%;
+    margin-bottom: 15px;
+    border-radius: 10px;
+    position: relative;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.card p, .cardMember p {
+    margin: 0;
+    color: white;
+    font-family: sanSemi;
+    font-size: 10pt;
+}
+
+#deleteIcon {
+    color: aliceblue;
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    right: 10%;
+    cursor: pointer;
+}
+
+#deleteIcon:hover {
+    transform: scale(110%);
+    box-shadow: 0 4px 8px rgba(255, 255, 255, 0.2);
+}
+
+#dpImg {
+    width: 30px;
+    height: 30px;
+    border-radius: 30px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+
+@keyframes pop {
+    0% {
+      transform: scale(0.5);
+    }
+    50% {
+      transform: scale(1);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+
+  @keyframes slideDown {
+    0% {
+      transform: translateY(-100%);
+    }
+    100% {
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }

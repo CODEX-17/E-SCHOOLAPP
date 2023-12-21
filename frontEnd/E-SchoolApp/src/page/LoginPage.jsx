@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom'
 import style from './LoginPage.module.css'
 import logoWhite from '../assets/logo-white.png'
 import logoBlue from '../assets/logo.png'
-import axios from 'axios'
 import { useAccountStore } from '../stores/useAccountsStore'
 
 const LoginPage = () => {
@@ -13,22 +12,19 @@ const [urlImage, seturlImage] = useState(true)
 const [isChecked, setisChecked] = useState(false)
 const [email, setEmail] = useState('')
 const [password, setPassword] = useState('')
-const [error, setError] = useState('')
-const { updateStatus, account, getAccounts, isAuthenticated, updateAccountFiltered, updateisAuthenticated, accountFiltered } = useAccountStore()
+const [error, setError] = useState(false)
+const { getAccounts, account } = useAccountStore()
 
+  useEffect(() => {
+    getAccounts()
+    const authtoken = JSON.parse(localStorage.getItem('authtoken'))
+    const user = JSON.parse(localStorage.getItem('user'))
 
-const dataAccount = JSON.parse(localStorage.getItem('accounts'))
-const user = JSON.parse(localStorage.getItem('user'))
+    if ( authtoken || user ) {
+        navigate('/home')
+    }
 
-if (user) {
-    useEffect(() => {
-        console.log(user.status)
-        if (user.status === 'login') {
-            updateisAuthenticated(true)
-            navigate('/home')
-        }
-    },[])
-}
+  },[])
 
 
 const handleHoverLogo = () => {
@@ -41,22 +37,38 @@ const handleShowPass = () => {
 }
 
 const handleSubmit = (e) => {
-    e.preventDefault();
-    const dataFilter = dataAccount.find(acct => acct.email === email && acct.password === password)
-    console.log(dataFilter.id)
-    if (dataFilter) {
-        const id = dataFilter.id
-        const status = 'login'
-        updateStatus( id, status )
-        console.log('login Successfully!')
-        updateAccountFiltered(dataFilter)
-        updateisAuthenticated(true)
+    e.preventDefault()
+
+    const accountVerified = account.filter(acct => acct.email === email && acct.password === password)
+    console.log(accountVerified)
+    console.log('dsds')
+
+    if (accountVerified.length > 0) {
+        localStorage.setItem('user', JSON.stringify(accountVerified[0]))
+        localStorage.setItem('authtoken', JSON.stringify(true))
+        console.log('token'+ JSON.parse(localStorage.getItem('authtoken')))
+        console.log('user'+ JSON.parse(localStorage.getItem('user')))
         navigate('/home')
-    
     }else {
-        console.log('Incorrect Password!')
+        console.log('error')
+        localStorage.removeItem('user')
+        localStorage.removeItem('authtoken')
         setError(true)
+        setTimeout(() => {
+            setError(false)
+        }, 3000);
+        
     }
+}
+
+const handlePassword = (e) => {
+    setPassword(e.target.value)
+    setError(false)
+}
+
+const handleEmail = (e) => {
+    setEmail(e.target.value)
+    setError(false)
 }
 
   return (
@@ -68,14 +80,14 @@ const handleSubmit = (e) => {
             </div>
             <div className={style.right}>
                 <div className={style.top}>
-                    <h1 id={style.title}>Login</h1>
-                    <p id={style.subtitle}>your ACCOUNT</p>
+                    <h1 id={style.title}>LOGIN</h1>
+                    <p id={style.subtitle}>you account</p>
                 </div>
                 <div className={style.bot}>
                     <form action="" className='form' onSubmit={handleSubmit}>
                         <div className={style.inputDiv}>
-                            <input type="email" placeholder='Email' onChange={(e) => setEmail(e.target.value)} required/>
-                            <input type={isChecked ? "text" : "password"} placeholder='Password' onChange={(e) => setPassword(e.target.value)} required/>
+                            <input type="email" placeholder='Email' onChange={handleEmail} required/>
+                            <input type={isChecked ? "text" : "password"} placeholder='Password' onChange={handlePassword} required/>
                             <div className={style.horizontalDiv}>
                                 <label id={style.label} htmlFor="checkbox">Show password?</label>
                                 <input id={style.checkbox} type="checkbox" name='checkbox' checked={isChecked} onChange={handleShowPass}/>

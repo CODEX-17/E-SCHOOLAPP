@@ -4,14 +4,23 @@ import axios from 'axios';
 export const useAccountStore = create((set) => ({
 
     isAuthenticated: false,
-    account: JSON.parse(localStorage.getItem('accounts')),
+    account: null,
     accountFiltered: '',
+    currentAccount: null,
 
     getAccounts: () => {
         axios.get('http://localhost:5000/getAccount')
         .then(result => {
             localStorage.setItem('accounts', JSON.stringify(result.data))
             set({account: result.data})
+        })
+        .catch(err => console.error(err))
+    },
+
+    getAccountById: (id) => {
+        axios.get('http://localhost:5000/getAcctById/'+id)
+        .then(result => {
+            set({currentAccount: result.data})
         })
         .catch(err => console.error(err))
     },
@@ -38,6 +47,12 @@ export const useAccountStore = create((set) => ({
             localStorage.setItem('user', JSON.stringify(data));
 
         })
+        .catch(err => console.log(err))
+    },
+
+    updatePassword: (id, newPass) => {
+        axios.put('http://localhost:5000/updatePassword/' + id, { newPass })
+        .then( res => console.log(res))
         .catch(err => console.log(err))
     },
 

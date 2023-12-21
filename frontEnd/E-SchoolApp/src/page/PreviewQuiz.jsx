@@ -1,219 +1,291 @@
 import React, { useEffect, useState } from 'react'
 import style from './PreviewQuiz.module.css'
-import { BiSolidRightArrowAlt } from "react-icons/bi"
-
-const PreviewQuiz = ({ onData, questionTitle, questionDescription, choices, questionObj}) => {
-
-const questions = questionObj
-const choice = choices
+import { BiExit } from "react-icons/bi"
+import { FiEdit } from 'react-icons/fi'
+import sample from '../assets/sample.jpg'
+import { SlPrinter } from "react-icons/sl";
 
 
+const PreviewQuiz = ({ onData, quizTitle, quizInstructions, choices, questionObj, imageSetQuestion, fillLayoutSet}) => {
 
-const totalQuestions = questions.length
-const [questionNumber, setquestionNumber] = useState(1)
-const [questionContent, setquestionContent] = useState('')
-const [questionAnswer, setquestionAnswer] = useState('')
-const [keySensitive, setkeySensitive] = useState(false)
-const [points, setpoints] = useState(0)
-const [required, setrequired] = useState(false)
-const [choicesID, setchoicesID] = useState()
-const [quizType, setquizType] = useState('start')
-
-const [currentChoices, setcurrentChoices] = useState([])
-
-const [backData, setbackData] = useState()
-const [containsPic, setcontainsPic] = useState(false)
-const [choicesAnswer, setChoicesAnswer] = useState()
-
-
-const handleBackToGenerator = () => {
-    setbackData(false)
-    onData(backData) // passValue to parent
-}
-
-const handleStart = () => {
-    const question = questions.filter(ques => ques.questionNumber === 1)
-  
-    setchoicesID(question[0].choicesID)
-    setrequired(question[0].required)
-    setpoints(question[0].setpoints)
-    setquestionAnswer(question[0].questionAnswerText)
-    setkeySensitive(question[0].keySensitive)
-    setquizType(question[0].questionType)
-    setquestionNumber(question[0].questionNumber)
-    setquestionContent(question[0].questionContent)
-
-    if (question[0].questionType === 'choices') {
-
-        const tempData = choice.filter(data => data.choicesID === choicesID)
-        setcurrentChoices(tempData)
-
-    }
-    
-    
-}
-
-const handleNextQuestion = () => {
-    console.log(choice)
-    if (questionNumber < totalQuestions) {
-        setContent(questionNumber)
-    }else {
-        console.log("The question number is: " + questionNumber + " and the max value is: " + totalQuestions) 
-    }
-    
-}
-
-const setContent = (number) => {
-    const question = questions.filter(ques => ques.questionNumber === number+1)
-    
-    setchoicesID(question[0].choicesID)
-    setrequired(question[0].required)
-    setpoints(question[0].setpoints)
-    setquestionAnswer(question[0].questionAnswerText)
-    setkeySensitive(question[0].keySensitive)
-    setquizType(question[0].questionType)
-    setquestionNumber(parseInt(questionNumber) + 1)
-    setquestionContent(question[0].questionContent)
-
-    const tempData = choice.filter(data => data.choicesID === question[0].choicesID)
-    setcurrentChoices(tempData)
-}
+const questionSet = questionObj
+const imageSet = imageSetQuestion
+const choicesSet = choices
+const fillLayout = fillLayoutSet
 
   return (
     <div className={style.container}>
-        <div className='mb-3 d-flex gap-2'>
-            <button className='btn btn-primary' onClick={() => setquizType('start')}>start</button>
-            <button className='btn btn-primary' onClick={() => setquizType('text')}>text</button>
-            <button className='btn btn-primary' onClick={() => setquizType('choices')}>Choices</button>
-            <button className='btn btn-primary' onClick={() => setquizType('fill')}>fill in the blank</button>
-            <button className='btn btn-warning' onClick={() => setcontainsPic(!containsPic)}>{containsPic ? 'No Image' : 'Set Image'}</button>
-        </div>
-        
-        {
-            quizType === 'start' && (
-                <div className={style.content}>
-                    <p id={style.btnexit} onClick={() => handleBackToGenerator()}><i>Back <BiSolidRightArrowAlt/></i></p>
-                    <h2>Quiz Title:</h2>
-                    <h1>{questionTitle ? questionTitle : '(Insert Title)'}</h1>
-                    <p>{questionDescription ? questionDescription : '(Insert Description)'}</p>
-                    <div className={style.box}>
-                        box
-                    </div>
-                    <button id={style.btnstart} onClick={handleStart}>Start</button>
+        <div className={style.content}>
+            <div className={style.header}>
+                <p id={style.quizTitle}>Quiz title</p>
+                <h2>{quizTitle ? quizTitle : 'Insert Title'}</h2>
+                <p>{quizInstructions ? quizInstructions : 'Insert Description'}</p>
+                <div id={style.menuBtn}>
+                    <SlPrinter id={style.btnMenu} size={21} title='Print' onClick={() => onData('printLayout')}/>
+                    <FiEdit id={style.btnMenu} size={21} title='Edit' onClick={() => onData('previewList')}/>
+                    <BiExit id={style.btnMenu} size={22} title='Exit' onClick={() => onData('generator')}/>
                 </div>
-            )
-        }
+            </div>
+           
+            {
+                questionSet.map((questions, index) => (
 
-        {
-            quizType === 'text' && containsPic === false &&(
-                <div className={style.content}>
-                    <h1 id={style.quizTitle}>{questionTitle}</h1>
-                    <p id={style.quizDes}>{questionDescription}</p>
-                    <div id={style.quizBox}>
-                        <p id={style.itemNumber}>{questionNumber}/{totalQuestions}</p>
-                        <p>Question:</p>
-                        <h1>{questionContent}</h1>
-                        <p><i>{keySensitive ? 'Key sensitive answer' : 'Not key sensitive.'}</i></p>
-                        <h2>Answer:</h2>
-                        <textarea value={questionAnswer} onChange={(e) => setquestionAnswer(e.target.value)}>
-                        </textarea>
-                    </div>
-                    <button id={style.btnstart} onClick={handleNextQuestion}>Next</button>
-                </div>
-            )
-        }
+                    questions.questionType === 'text' && questions.imageID === 'none' && (
 
-        {
-            quizType === 'text' && containsPic === true && (
-                <div className={style.content}>
-                    <h1 id={style.quizTitle}>{questionTitle}</h1>
-                    <p id={style.quizDes}>{questionDescription}</p>
-                    <div id={style.quizBoxWImage}>
-                        <div className={style.leftQuizText}>
-                            <p id={style.itemNumber}>{questionNumber}/{totalQuestions}</p>
-                            <p>Question:</p>
-                            <h1>{questionContent}</h1>
-                            <p><i>{keySensitive ? 'Key sensitive answer' : 'Not key sensitive.'}</i></p>
-                            <div className={style.qTextImage}>
-                                insert image
-                            </div>
-                        </div>
-                        <div className={style.rightQuizText}>
-                            <h2>Answer:</h2>
-                            <textarea value={questionAnswer} onChange={(e) => setquestionAnswer(e.target.value)}>
-                            </textarea>
-                        </div>
-                        
-                    </div>
-                    <button id={style.btnstart} onClick={handleNextQuestion}>Next</button>
-                </div>
-            )
-        }
-
-        {
-            quizType === 'choices' && containsPic === false &&(
-                <div className={style.content}>
-                    <h1 id={style.quizTitle}>{questionTitle}</h1>
-                    <p id={style.quizDes}>{questionDescription}</p>
-                    <div className={style.contentBoxChoices}>
-                        <p id={style.quesLabel}>Question:</p>
-                        <p id={style.quesNum}>{questionNumber}/{totalQuestions}</p>
-                        <h2 id={style.quesContent}>{questionContent}</h2>
-                        <p id={style.reminder}><i>Answer must be 2.</i></p>
-                        <p id={style.quesLabel}>Answer:</p>
-                        <div id={style.ansChoices}>
-                            <div id={style.leftSide}>
-                                {
-                                    currentChoices.map((choices, index) => (
-                                        <button key={index} id={choicesAnswer === choices.letter ? style.btnAnsChoicesActive : style.btnAnsChoices} onClick={() => setChoicesAnswer(choices.letter)}>{choices.letter}. {choices.content}</button>
-                                    ))
-                                }
-                            </div>
-
-                        </div>
-                    </div>
-                    <button id={style.btnstart} onClick={handleNextQuestion}>Next</button>
-                </div>
-            )
-        }
-
-        {
-            quizType === 'choices' && containsPic === true &&(
-                <div className={style.content}>
-                    <h1 id={style.quizTitle}>das</h1>
-                    <p id={style.quizDes}>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum, tempore.</p>
-                    <div className={style.contentBoxChoices}>
-                        <p id={style.quesLabel}>Question:</p>
-                        <p id={style.quesNum}>1/2</p>
-                        <h2 id={style.quesContent}>What is 1+1 ?</h2>
-                        <p id={style.reminder}><i>Answer must be 2. UniquesId: {choicesID}</i></p>
-                        
-                        <div id={style.ansChoices}> 
-                            <div id={style.leftSide}>
-                                <div id={style.imageContainer}>
-                                    insert image
+                        <div className={style.quizContainer}>
+                            <div className={style.topquizContainer}>
+                                <div id={style.circle}>Q{questions.questionNumber}</div>
+                                <div className={style.titlesDiv}>
+                                    <p>Question:</p>
+                                    <h2>{questions.questionContent.replace(/(.{70})/g, "$1\n")}</h2>
+                                    <p style={{ fontSize: '8pt'}}><i>{questions.keySensitive ? 'key senstive answer.' : 'not key senstive answer.'}</i></p>
                                 </div>
                             </div>
-                            <div id={style.leftSide}>
-                                <p id={style.quesLabel}>Answer:</p>
-                                <button id={choicesAnswer === 'A' ? style.btnAnsChoicesActive : style.btnAnsChoices} onClick={() => setChoicesAnswer('A')}>A. two</button>
-                                <button id={choicesAnswer === 'B' ? style.btnAnsChoicesActive : style.btnAnsChoices} onClick={() => setChoicesAnswer('B')}>B. two</button>
-                                <button id={choicesAnswer === 'C' ? style.btnAnsChoicesActive : style.btnAnsChoices} onClick={() => setChoicesAnswer('C')}>C. two</button>
-                                <button id={choicesAnswer === 'D' ? style.btnAnsChoicesActive : style.btnAnsChoices} onClick={() => setChoicesAnswer('D')}>D. two</button>
-                            
+                            <div className={style.botquizContainer}>
+                                <p style={{ margin: '0', fontSize: '10pt'}}>Answer:</p>
+                                <textarea id={style.textAnswer}>
+                                    {questions.questionAnswerText}
+                                </textarea>
+                            </div>
+                        </div>
+
+                    ) ||
+
+                    questions.questionType === 'text' && questions.imageID != 'none' && (
+
+                        <div className={style.quizContainer}>
+                            <div className={style.topquizContainer}>
+                                <div id={style.circle}>Q{questions.questionNumber}</div>
+                                <div className={style.titlesDiv}>
+                                    <p>Question:</p>
+                                    <h2>{questions.questionContent.replace(/(.{70})/g, "$1\n")}</h2>
+                                    <p style={{ fontSize: '8pt'}}><i>{questions.keySensitive ? 'key senstive answer.' : 'not key senstive answer.'}</i></p>
+                                </div>
+                            </div>
+                            <div className={style.botquizContainerImage}>
+                                <div className={style.botLeft}>
+                                    <p style={{ margin: '0', fontSize: '10pt'}}>Answer:</p>
+                                    <textarea id={style.textAnswer}>
+                                        {questions.questionAnswerText}
+                                    </textarea>
+                                </div>
+                                <div className={style.botRight}>
+                                    {imageSet
+                                            .filter((image) => image.imageID === questions.imageID)
+                                            .map((images, index) => (
+                                            <img
+                                                key={index} // Don't forget to add a key to each dynamically rendered element
+                                                src={URL.createObjectURL(images.file)}
+                                                alt="image"
+                                                className={style.imgQuestion}
+                                            />
+                                            ))
+                                    }
+                                </div>
+                                
+                            </div>
+                        </div>
+
+                    ) ||
+
+                    questions.questionType === 'choices' && questions.imageID === 'none' && (
+
+                        <div className={style.quizContainer}>
+                            <div className={style.topquizContainer}>
+                                <div id={style.circle}>Q{questions.questionNumber}</div>
+                                <div className={style.titlesDiv}>
+                                    <p>Question:</p>
+                                    <h2>{questions.questionContent.replace(/(.{70})/g, "$1\n")}</h2>
+                                    <p style={{ fontSize: '8pt'}}><i>Choose {choicesSet.filter((choices) => choices.choicesID === questions.choicesID && choices.correct === true).length} answers.</i></p>
+                                </div>
+                            </div>
+                            <div className={style.botquizContainerChoices}>
+                                {choicesSet.filter((choices) => choices.choicesID === questions.choicesID).map((choice, index) => (
+                                    <div key={index} className={choice.correct ? style.choicesActive : style.choices }>{choice.letter}. {choice.content}</div>
+                                ))}
+                            </div>
+                        </div>
+                    ) ||
+
+                    questions.questionType === 'choices' && questions.imageID != 'none' && (
+
+                        <div className={style.quizContainer}>
+                            <div className={style.topquizContainer}>
+                                <div id={style.circle}>Q{questions.questionNumber}</div>
+                                <div className={style.titlesDiv}>
+                                    <p>Question:</p>
+                                    <h2>{questions.questionContent.replace(/(.{70})/g, "$1\n")}</h2>
+                                    <p style={{ fontSize: '8pt'}}><i>Choose {choicesSet.filter((choices) => choices.choicesID === questions.choicesID && choices.correct === true).length} answers.</i></p>
+                                </div>
+                            </div>
+                            <div className={style.botquizContainerImage}>
+                                <div className={style.botLeft}>
+                                    <div className={style.botListChoices}>
+                                    {choicesSet.filter((choices) => choices.choicesID === questions.choicesID).map((choice, index) => (
+                                        <div key={index} className={choice.correct ? style.choicesActiveImage : style.choicesImage }>{choice.letter}. {choice.content}</div>
+                                    ))}
+                                    </div>
+                                </div>
+                                <div className={style.botRight}>
+                                    {imageSet
+                                        .filter((image) => image.imageID === questions.imageID)
+                                        .map((images, index) => (
+                                        <img
+                                            key={index} // Don't forget to add a key to each dynamically rendered element
+                                            src={URL.createObjectURL(images.file)}
+                                            alt="image"
+                                            className={style.imgQuestion}
+                                        />
+                                        ))
+                                    }
+                                 </div>
+                                
+                            </div>
+                        </div>
+                    ) ||
+
+                    questions.questionType === 'fill' && questions.imageID === 'none' && (
+
+                        <div className={style.quizContainer}>
+                            <div className={style.topquizContainer}>
+                                <div id={style.circle}>Q{questions.questionNumber}</div>
+                                <div className={style.titlesDiv}>
+                                    <p>Question:</p>
+                                    <div className={style.fillContentList}>
+                                        {
+                                            fillLayout
+                                                .filter((fill) => fill.fillLayoutID === questions.fillLayoutID)
+                                                .map((fill, index) => (
+                                                    fill.fillType === 'text' && (<h2 className={style.fillText} title='text' key={index}>{fill.fillContent}</h2>) ||
+                                                    fill.fillType === 'blank' && (<div className={style.fillBlank} title='answer' key={index}><u>{fill.fillContent}</u></div>)
+                                                ))
+                                        }
+                                    </div>
+                                    <p style={{ fontSize: '8pt'}}><i>Choose {fillLayout.filter((fill) => fill.fillType === 'blank' && fill.fillLayoutID === questions.fillLayoutID).length} answers.</i></p>
+                                </div>
                             </div>
                             
                         </div>
-                    </div>
-                    <button id={style.btnstart}>Next</button>
-                </div>
-            )
-        }
+                    ) || 
+
+                    questions.questionType === 'fill' && questions.imageID !== 'none' && (
+                        <div className={style.quizContainer}>
+                            <div className={style.topquizContainer}>
+                                <div className={style.leftDivFill}>
+                                    <div id={style.circle}>Q{questions.questionNumber}</div>
+                                    <div className={style.titlesDivFill}>
+                                        <p>Question:</p>
+                                        <div className={style.fillContent}>
+                                            {
+                                                fillLayout
+                                                    .filter((fill) => fill.fillLayoutID === questions.fillLayoutID)
+                                                    .map((fill, index) => (
+                                                        fill.fillType === 'text' && (<h2 className={style.fillText} title='text' key={index}>{fill.fillContent}</h2>) ||
+                                                        fill.fillType === 'blank' && (<h2 className={style.fillBlank} title='answer' key={index}><u>{fill.fillContent}</u></h2>)
+                                                    ))
+                                            }
+                                        
+                                        </div>
+                                        <p style={{ fontSize: '8pt'}}><i>Choose {fillLayout.filter((fill) => fill.fillType === 'blank' && fill.fillLayoutID === questions.fillLayoutID).length} answers.</i></p>
+                                    </div>
+                                </div>
+                                <div className={style.rightDivFill}>
+                                    {imageSet
+                                            .filter((image) => image.imageID === questions.imageID)
+                                            .map((images, index) => (
+                                            <img
+                                                id={style.imgFill}
+                                                key={index} // Don't forget to add a key to each dynamically rendered element
+                                                src={URL.createObjectURL(images.file)}
+                                                alt="image"
+                                                className={style.imgQuestion}
+                                            />
+                                            ))
+                                        }
+                                </div>
+                                
+                            </div>
+                            
+                        </div>
+                    ) ||
+
+                    questions.questionType === 'True Or False' && questions.imageID === 'none' && (
+
+                        <div className={style.quizContainer}>
+                            <div className={style.topquizContainer}>
+                                <div id={style.circle}>Q{questions.questionNumber}</div>
+                                <div className={style.titlesDiv}>
+                                    <p>Question:</p>
+                                    <h2>{questions.questionContent.replace(/(.{70})/g, "$1\n")}</h2>
+                                    <p style={{ fontSize: '8pt'}}><i>{questions.required ? 'required to answer.' : 'not required to answer.'}</i></p>
+                                </div>
+                            </div>
+                            <div className={style.botquizContainer}>
+                                <p style={{ margin: '0', fontSize: '10pt'}}>Answer:</p>
+                                <div className='d-flex justify-content-center'>
+                                    <div className={questions.questionAnswerText === true ? style.choicesActive : style.choices }>true</div>
+                                    <div className={questions.questionAnswerText === false ? style.choicesActive : style.choices }>false</div>
+                                </div>
+                            </div>
+                        </div>
+
+                    ) ||
+
+                    questions.questionType === 'True Or False' && questions.imageID != 'none' && (
+
+                        <div className={style.quizContainer}>
+                            <div className={style.topquizContainer}>
+                                <div id={style.circle}>Q{questions.questionNumber}</div>
+                                <div className={style.titlesDiv}>
+                                    <p>Question:</p>
+                                    <h2>{questions.questionContent.replace(/(.{70})/g, "$1\n")}</h2>
+                                    <p style={{ fontSize: '8pt'}}><i>{questions.required ? 'required to answer.' : 'not required to answer.'}</i></p>
+                                </div>
+                            </div>
+                            <div className={style.botquizContainerImage}>
+                                <div className={style.botLeft}>
+                                    <p style={{ margin: '0', fontSize: '10pt'}}>Answer:</p>
+                                    <div className='d-flex'>
+                                        <div className={questions.questionAnswerText === true ? style.choicesActive : style.choices }>true</div>
+                                        <div className={questions.questionAnswerText === false ? style.choicesActive : style.choices }>false</div>
+                                    </div>
+                                </div>
+                                <div className={style.botRight}>
+                                    {imageSet
+                                            .filter((image) => image.imageID === questions.imageID)
+                                            .map((images, index) => (
+                                            <img
+                                                key={index} // Don't forget to add a key to each dynamically rendered element
+                                                src={URL.createObjectURL(images.file)}
+                                                alt="image"
+                                                className={style.imgQuestion}
+                                            />
+                                            ))
+                                    }
+                                </div>
+                                
+                            </div>
+                        </div>
+
+                    )
 
 
-        
+                    
+                ))
+            }
 
-        
+
+             {/* choices Quiz with image */}
+
+             
+            <div className='w-100 d-flex justify-content-end'>
+                <button className={style.btnSubmit}>Submit</button>
+            </div>
+            
+
+
+            
+        </div>
     </div>
   )
 }

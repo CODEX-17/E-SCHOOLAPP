@@ -7,6 +7,15 @@
     src: url('../assets/fonts/potato.otf');
 }
 
+@font-face {
+  font-family: sanBold;
+  src: url('../assets/fonts/sanBold.ttf');
+}
+@font-face {
+  font-family: sanSemi;
+  src: url('../assets/fonts/sanSemi.ttf');
+}
+
 .container {
     background-color: #0c9cec;
     width: 100vw;
@@ -72,19 +81,21 @@
     justify-content: center;
 }
 
-.right .top #title {
-    font-family: potatoFont;
+#title {
+    font-family: sanBold;
     font-size: 5em;
-
-    letter-spacing: 5px;
     margin: 0;
+    animation: bounce 2s infinite;
+    user-select: none;
 }
 
-.right .top #subtitle {
+#subtitle {
     margin-top: -20px;
     margin-right: -100px;
-    font-family: cuteFont;
-    font-size: 1.5em;
+    font-family: sanSemi;
+    font-size: 15pt;
+    color: #3E3F40;
+    user-select: none;
 }
 
 
@@ -115,27 +126,27 @@ form {
     font-size: 1.1em;
     padding-top: 10px;
     padding-bottom: 10px;
-    font-family: sans-serif;
+    font-family: sanSemi;
     color: #0c9cec;
 }
 .inputDiv input::placeholder {
     color: #0c9cec;
-    font-family: cuteFont;
+    font-family: sanSemi;
+    font-size: 10pt
 }
 
 .btn {
     background-color: #3e3f40;
     border: none;
-    font-size: 1.3em;
-    font-family: potatoFont;
+    font-size: 10pt;
+    font-family: sanSemi;
     color: #ffffff;
-    padding: 10px;
-    letter-spacing: 1px;
-    border-radius: 20px;
+    border-radius: 10px;
     width: 60%;
+    height: 30px;
     outline: none;
     margin-top: 10px;
-    animation: pop 2s ease-in-out;
+    animation: pop 0.5s ease;
 }
 
 .btn:hover {
@@ -160,10 +171,12 @@ form {
 }
 
 #label {
-    font-size: 1em;
+    font-size: 10pt;
     white-space: nowrap;
-    color: #3e3f40;
-    font-family: cuteFont;
+    color: #3E3F40;
+    font-family: sanSemi;
+    user-select: none;
+    
 }
 
 #errorMessage {
@@ -174,17 +187,15 @@ form {
 
 }
 
-#title {
-    animation: bounce 2s infinite;
-}
 
 .footer {
     position: absolute;
     width: 100%;
     bottom: 0;
+    font-size: 10pt;
     color: white;
     letter-spacing: 2px;
-    font-family: cuteFont;
+    font-family: sanSemi;
     text-align: center;
     animation: fade 2s ease-in; 
 }
@@ -193,7 +204,7 @@ form {
   margin-top: 20px;
   color: red;
   font-family: cuteFont;
-  animation: shake 1s ease-in;
+  animation: shake 1s ease-in; 
 }
 
 @keyframes shake {

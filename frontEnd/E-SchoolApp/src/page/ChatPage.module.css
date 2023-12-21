@@ -1,0 +1,279 @@
+@font-face {
+    font-family: sanBold;
+    src: url('../assets/fonts/sanBold.ttf');
+}
+@font-face {
+    font-family: sanSemi;
+    src: url('../assets/fonts/sanSemi.ttf');
+}
+
+.container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.botPanel form {
+  display: flex;
+  width: 100%;
+}
+
+.content {
+    width: 80%;
+    height: 95%;
+    display: flex;
+    font-family: sanSemi;
+    color: #3E3F40;
+}
+
+.leftBar {
+    background-color: #099AED;
+    flex: 30%;
+    padding: 2%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.leftBar h2 {
+    color: white;
+    font-family: sanBold;
+}
+
+.chatList {
+    height: 90%;
+    width: 90%;
+    padding: 1%;
+    overflow-y: auto;
+    margin-top: 5%;
+}
+
+.card {
+    background-color: white;
+    border-radius: 15px;
+    padding: 2%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    gap: 7%;
+    position: relative;
+    margin-top: 4%;
+    margin-bottom: 4%;
+    cursor: pointer;
+}
+
+.circle {
+    background-color: #3E3F40;
+    width: 40px;
+    height: 40px;
+    border-radius: 40px;
+    margin-left: 3%;
+    user-select: none;
+}
+
+.vertical {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: auto;
+    user-select: none;
+}
+
+.vertical h2 {
+    color: #3E3F40;
+    font-family: sanBold;
+    font-size: 12pt;
+    margin: 0;
+}
+
+.vertical P {
+    font-size: 8pt;
+    margin: 0;
+    color: #7d7e80;
+}
+
+#activeLight {
+    position: absolute;
+    right: 5%;
+}
+
+.rightBar {
+    background-color: white;
+    flex: 70%;
+    padding: 2%;
+    border-radius: 0px 20px 20px 0px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.header {
+  border-bottom: 1px solid #dadbdd;
+  display: flex;
+  gap: 2%;
+  padding: 1%;
+}
+
+#headerPic {
+  width: 50px;
+  height: 50px;
+  border-radius: 50px;
+}
+
+.body {
+  height: 92%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.messageScreenContainer  {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 92%;
+  justify-content: end;
+}
+
+.messageScreen {
+  height: auto;
+  width: 100%;
+  overflow-y: auto;
+  display: flex;
+  padding: 2%;
+  flex-direction: column;
+}
+
+
+
+.botPanel {
+  flex: 5%;
+  height: 50px;
+  border-top: 1px solid #dadbdd;
+  display: flex;
+  align-items: center;
+  padding: 2% 1% 0px 1%;
+  gap: 2%;
+  width: 100%;
+}
+
+.botPanel textarea { 
+  width: 90%;
+  height: 100%;
+  border: none;
+  border-radius: 10px;
+  font-size: 8pt;
+  margin: 0;
+  padding-left: 10px;
+  padding-top: 5px;
+  outline: none;
+  resize: none;
+  border: 1px solid #099AED;
+  color: #3E3F40;
+  font-family: sanSemi;
+}
+
+.botPanel textarea:focus {
+  background-color: #e8e8ed;
+  border: 1px solid transparent;
+}
+
+#plusSign {
+  color: #099AED;
+  width: 25px;
+  height: 25px;
+}
+
+#sendSign {
+  color: #099AED;
+  width: 20px;
+  height: 20px;
+}
+
+#sendSign:hover, #plusSign:hover {
+  color: #9c9b9b;
+  transform: scale(110%);
+  cursor: pointer;
+}
+
+.ownChatDiv {
+  position: relative;
+  width: 100%;
+  height: auto;
+  padding: 2%;
+  display: flex;
+  justify-content: end;
+}
+
+.receiverChatDiv {
+  position: relative;
+  width: 100%;
+  height: auto;
+  padding: 2%;
+  display: flex;
+  justify-content: start;
+}
+
+.senderbubbles {
+  background-color: #ffffff;
+  border-radius: 10px;
+  padding: 2%;
+  color: #3E3F40;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  font-size: 10pt;
+}
+
+.bubbleChatContainer {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.bubbleChatContainer p {
+  color: #7d7e80;
+  margin: 0;
+  font-size: 8pt;
+}
+
+.bubbles {
+  background-color: #099AED;
+  border-radius: 10px;
+  padding: 2%;
+  color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  font-size: 10pt;
+}
+
+
+
+@keyframes pop {
+    0% {
+      transform: scale(0.5);
+    }
+    50% {
+      transform: scale(1);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+
+  @keyframes slideDown {
+    0% {
+      transform: translateY(-100%);
+    }
+    100% {
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }

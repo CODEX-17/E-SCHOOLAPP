@@ -6,20 +6,78 @@ import CreateUser from './CreateUser'
 import { useAccountStore } from '../stores/useAccountsStore'
 import QuizGenerator from './QuizGenerator'
 import { useNavigateStore } from '../stores/useNavigateStore'
+import { useNavigate } from 'react-router-dom';
 import { Quiz } from './Quiz'
 import ClassPage from './ClassPage'
 import PreviewQuiz from './PreviewQuiz'
 import ChatPage from './ChatPage'
+import ActivityPage from './ActivityPage'
+import ManageAccout from './ManageAccout'
+import axios from 'axios'
+import { useImageStore } from '../stores/useImageStore'
+import { usePostStore } from '../stores/usePostStore'
+import { useMemberStore } from '../stores/useMemberStore'
+import FilePage from './FilePage'
+import io from 'socket.io-client';
+import { useQuestionsStore } from '../stores/useQuestionsStore'
+import { useFillLayoutStore } from '../stores/useFillLayoutStore'
+import { useChoicesStore } from '../stores/useChoicesStore'
+import { useQuizStore } from '../stores/useQuizStore'
 
+const socket = io.connect('http://localhost:5000');
 
 const HomePage = () => {
-
-  const { accountFiltered } = useAccountStore()
   const { routeChoose } = useNavigateStore()
-  const status = accountFiltered.status
-  console.log(status)
+  const { getImages } = useImageStore()
+  const { getPost } = usePostStore()
+  const { getMembers } = useMemberStore()
+  const { getQuestion } = useQuestionsStore()
+  const { getFillLayout } = useFillLayoutStore()
+  const { getChoices } = useChoicesStore()
+  const { getQuiz } = useQuizStore()
 
+  const navigate = useNavigate()
   
+
+  useEffect(() => {
+    socket.emit('hello', 'world');
+    // socket.on('message', (msg) => {
+    //   alert(msg)
+    // })
+  },[])
+
+  useEffect(() => {
+    getQuiz()
+    getChoices()
+    getQuestion()
+    getFillLayout()
+    getMembers()
+    getClassesAll()
+    getPost()
+    getImages()
+    getAccounts()
+    const authtoken = localStorage.getItem('authtoken')
+    const userAccount = localStorage.getItem('user') 
+    
+    if (!authtoken || !userAccount) {
+        navigate('/')
+    }
+
+  },[])
+
+  const getClassesAll = () => {
+    axios.get('http://localhost:5000/getClass')
+    .then((res) => localStorage.setItem('classes', JSON.stringify(res.data)))
+    .catch((error) => console.error(error))
+  }
+
+  const getAccounts = () => {
+    axios.get('http://localhost:5000/getAccount')
+    .then(res => localStorage.setItem('accounts', JSON.stringify(res.data)))
+    .catch(err => console.error(err))
+  }
+
+
   return (
     
       <div className={style.container}>
@@ -33,11 +91,14 @@ const HomePage = () => {
           </div>
           <div className={style.right}>
             {routeChoose === 'quiz' && <QuizGenerator/>}
+            {routeChoose === 'activity' && <ActivityPage/>}
             {routeChoose === 'chat' && <ChatPage/>}
             {routeChoose === 'createUser' && <CreateUser/>}
             {routeChoose === 'quizDev' && <Quiz/>}
             {routeChoose === 'class' && <ClassPage/>}
             {routeChoose === 'previewQuiz' && <PreviewQuiz/>}
+            {routeChoose === 'manageAccount' && <ManageAccout/>}
+            {routeChoose === 'file' && <FilePage/>}
 
             {/* { 
               isToastOpen && (

@@ -59,17 +59,14 @@ html,body {
 .right {
     margin: 10px;
     z-index: 1;
-    width: 100vw;
-    height: 95%;
+    width: 100%;
+    height: 92%;
     display: flex;
     justify-content: center;
     align-items: center;
-    overflow: scroll;
-    padding-top: 2%;
-    /* background-image: url('../assets/quiz-bg.jpg');
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center; */
+    overflow-x: hidden;
+    overflow-y: auto;
+    margin: 1%;
 }
 
 

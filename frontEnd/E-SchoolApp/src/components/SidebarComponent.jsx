@@ -14,6 +14,7 @@ const SidebarComponent = () => {
 
   const handleRoutes = (route) => {
     updateRouteChoose(route)
+    console.log(route)
   }
 
   return (

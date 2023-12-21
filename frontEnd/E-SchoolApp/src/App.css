@@ -9,3 +9,33 @@ body {
   padding: 0;
  
 }
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-button {
+  height: 5px;
+  width: 10px;
+}
+
+/* Modify the scrollbar handle */
+::-webkit-scrollbar-thumb {
+  background-color: transparent;
+  border-radius: 6px;
+}
+
+/* Add hover effect to the scrollbar handle */
+::-webkit-scrollbar-thumb:hover {
+  background-color: #e0dddd;
+}
+
+/* Modify the scrollbar track on the horizontal axis */
+::-webkit-scrollbar-track {
+  background-color: #f1f1f1;
+}
+
+/* Modify the scrollbar handle on the horizontal axis */
+::-webkit-scrollbar-thumb:horizontal {
+  background-color: #3498db;
+}

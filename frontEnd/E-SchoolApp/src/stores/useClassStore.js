@@ -4,8 +4,8 @@ import axios from 'axios'
 export const useClassStore = create((set)=> ({
 
     classes: [],
-    addClass: (className , classDesc) => {
-        axios.post('http://localhost:5000/addClass', {className, classDesc})
+    addClass: (className , classDesc, acctID) => {
+        axios.post('http://localhost:5000/addClass', {className, classDesc, acctID})
         .then(res => console.log(res))
         .catch(err => console.error(err))
     },

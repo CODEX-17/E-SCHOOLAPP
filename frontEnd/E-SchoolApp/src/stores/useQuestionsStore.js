@@ -8,6 +8,7 @@ export const useQuestionsStore = create((set) => ({
         axios.get('http://localhost:5000/getQuestion')
         .then(res => {
             set({questions: res.data})
+            localStorage.setItem('questions', JSON.stringify(res.data))
         })
         .catch(err => console.log(err))
     },
