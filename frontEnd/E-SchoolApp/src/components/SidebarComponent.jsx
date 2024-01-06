@@ -11,6 +11,7 @@ import { useNavigateStore } from '../stores/useNavigateStore';
 
 const SidebarComponent = () => {
   const { updateRouteChoose, routeChoose } = useNavigateStore()
+  const currentAccount = JSON.parse(localStorage.getItem('user'))
 
   const handleRoutes = (route) => {
     updateRouteChoose(route)
@@ -33,10 +34,15 @@ const SidebarComponent = () => {
           <RiTeamFill className={ routeChoose === 'class' ? style.activedIcon : style.icon} size={20}/>
           <p className={ routeChoose === 'class' ? style.activedText : style.text}>Class</p>
         </div>
-        <div className={ routeChoose === 'quizDev' ? style.activedGroup : style.iconGroup} onClick={() => handleRoutes('quizDev')}>
-          <PiNotebookFill className={ routeChoose === 'quizDev' ? style.activedIcon : style.icon} size={20}/>
-          <p className={ routeChoose === 'quizDev' ? style.activedText : style.text}>Quiz</p>
-        </div>
+        {
+          currentAccount.acctype === 'faculty' && (
+            <div className={ routeChoose === 'quizDev' ? style.activedGroup : style.iconGroup} onClick={() => handleRoutes('quizDev')}>
+              <PiNotebookFill className={ routeChoose === 'quizDev' ? style.activedIcon : style.icon} size={20}/>
+              <p className={ routeChoose === 'quizDev' ? style.activedText : style.text}>Quiz</p>
+          </div>
+          )
+        }
+        
         <div className={ routeChoose === 'file' ? style.activedGroup : style.iconGroup} onClick={() => handleRoutes('file')}>
           <AiFillFile className={ routeChoose === 'file' ? style.activedIcon : style.icon} size={20}/>
           <p className={ routeChoose === 'file' ? style.activedText : style.text}>File</p>

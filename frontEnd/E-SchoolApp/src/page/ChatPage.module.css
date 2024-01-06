@@ -65,6 +65,21 @@
     cursor: pointer;
 }
 
+.cardActive {
+  background-color: white;
+  border-radius: 15px;
+  padding: 2%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  gap: 7%;
+  position: relative;
+  margin-top: 4%;
+  margin-bottom: 4%;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
 .circle {
     background-color: #3E3F40;
     width: 40px;
@@ -72,6 +87,7 @@
     border-radius: 40px;
     margin-left: 3%;
     user-select: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .vertical {
@@ -119,6 +135,7 @@
   width: 50px;
   height: 50px;
   border-radius: 50px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .body {
@@ -143,9 +160,17 @@
   display: flex;
   padding: 2%;
   flex-direction: column;
+  scroll-behavior: smooth;
 }
 
-
+#scrollDown {
+  width: 20px;
+  height: 20px;
+  margin: 0;
+  border-radius: 3px;
+  border: 2px solid black;
+  cursor: pointer;
+}
 
 .botPanel {
   flex: 5%;

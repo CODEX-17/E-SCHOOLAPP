@@ -11,6 +11,7 @@ const ClassMembers = ({ memberID }) => {
 
   const [allMembers, setallMembers] = useState(JSON.parse(localStorage.getItem('members')))
   const [currentMembers, setcurrentMembers] =useState()
+  const currentAccount = JSON.parse(localStorage.getItem('user'))
 
   useEffect(() => {
     if (allMembers) {
@@ -22,7 +23,6 @@ const ClassMembers = ({ memberID }) => {
   return (
     <div className={style.container}>
       <h2>Class Members</h2>
-      <BiExit id={style.btnExit}/>
       <div className={style.head}>
         <h2 id={style.labelAdmin}>Class Admin</h2>
         <div className={style.card}>
@@ -32,7 +32,11 @@ const ClassMembers = ({ memberID }) => {
       </div>
       <div className='d-flex align-items-center mt-4 gap-2 p-2'>
         <h2 id={style.memberLabel}>Members</h2>
-        <CgAddR className={style.addMembers} title='add members'/>
+        {
+          currentAccount.acctype === 'faculty' && (
+            <CgAddR className={style.addMembers} title='add members'/>
+          )
+        }
       </div>
       <div className={style.listView}>
       {
@@ -42,7 +46,12 @@ const ClassMembers = ({ memberID }) => {
               <div className={style.cardMember}>
                 <img src={sample} alt="dp" id={style.dpImg}/>
                 <p>{member.firstName+' '+member.midleName+' '+member.lastName}</p>
-                <AiOutlineDelete id={style.deleteIcon}/>
+                {
+                  currentAccount.acctype === 'faculty' && (
+                    <AiOutlineDelete id={style.deleteIcon}/>
+                  )
+                }
+                
               </div>
             </div>
           ))) : (<p>Loading..</p>)

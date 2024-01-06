@@ -25,6 +25,9 @@ import axios from 'axios'
 import ClassQuizSetup from './ClassQuizSetup';
 import ClassAssignment from './ClassAssignment';
 import { GiNotebook } from "react-icons/gi";
+import { useFilesStore } from '../stores/useFilesStore';
+import { SiFiles } from "react-icons/si";
+
 
 const ClassHome = ({ currentSubjectName, currentImageClass, currentClassCode, currentMemberID, backToHomePage }) => {
 
@@ -47,10 +50,13 @@ const ClassHome = ({ currentSubjectName, currentImageClass, currentClassCode, cu
  const [subjectName, setsubjectName] = useState(currentSubjectName)
  const classCode = currentClassCode
  const [imageFile, setimageFile] = useState(null)
+ const [docxFileUploaded, setdocxFileUploaded] = useState(null)
  const [file, setFile] = useState()
+ const [docxFiles, setdocxFiles] = useState()
  const [userAccount, setUserAccount] = useState(JSON.parse(localStorage.getItem('user')))
  const [imageUser, setImageUser] = useState()
  const quiz = JSON.parse(localStorage.getItem('quiz'))
+ const filesList = JSON.parse(localStorage.getItem('files'))
 
  const [currentPost, setCurrentPost] = useState()
  const [postType, setPostType] = useState('')
@@ -60,9 +66,11 @@ const ClassHome = ({ currentSubjectName, currentImageClass, currentClassCode, cu
  const { uploadImage, getImages, images } = useImageStore()
  const { getAccountById, currentAccount} = useAccountStore()
  const { updateRouteChoose } = useNavigateStore()
+ const { uploadFiles } = useFilesStore()
 
  
  const [showChangeImageModal, setshowChangeImageModal] = useState(false)
+ const [showChangeFileModal, setshowChangeFileModal] = useState(false)
 
  const notif = new Howl({ src: [notifSound]})
  const errSound = new Howl({ src: [erroSound]})
@@ -76,6 +84,7 @@ const ClassHome = ({ currentSubjectName, currentImageClass, currentClassCode, cu
  })
 
 useEffect(()=>{
+    getPost()
     generateUniqueId()
     currentPostClass()
     getImages()
@@ -89,7 +98,7 @@ useEffect(()=>{
 const navigateClass = (choose, type, obj) => {
     setQuizObj(obj['quiz'])
     setChoose(choose)
-    setPostType(type) 
+    setPostType(type)
 }
 
 const notify = (message, state) => {
@@ -157,6 +166,12 @@ const handleGetImage = (e) => {
     setFile(file)
 }
 
+const handleGetFiles = (e) => {
+    e.preventDefault()
+    const file = e.target.files
+    setdocxFiles(file)
+}
+
 const handleUploadImage = () => {
     generateUniqueId()
     if (uniqueId) {
@@ -170,11 +185,26 @@ const handleUploadImage = () => {
     }
 }
 
+const handleUploadFiles = () => {
+    generateUniqueId()
+    if (uniqueId) {
+        const file = {
+            file: docxFiles[0],
+            fileID: uniqueId,
+        }
+        setdocxFileUploaded(file)
+        uploadFiles(file)
+        setshowChangeFileModal(false)
+    }
+}
+
+
 const handlePost = () => {
     
     if (postContent) {
         generateUniqueId()
         const image = imageFile ? (imageFile.imageID) : ('none')
+        const files = docxFileUploaded ? (docxFileUploaded.fileID) : ('none')
 
         let updatedPost = {
             acctID: userAccount.acctID,
@@ -184,7 +214,7 @@ const handlePost = () => {
             postContent,
             replyID: uniqueId,
             imageID: image,
-            fileID,
+            fileID: files,
             heartCount,
             likeCount,
             classCode: currentClassCode,
@@ -231,11 +261,11 @@ const handlePostAssignment = (content, quizID, duration) => {
         classCode: currentClassCode,
         subjectName,
         postType: 'assignment',
-        quizID: quizID,
+        quizID,
         duration,
     }
-    console.log(updatedPost)
     uploadPost(updatedPost)
+    getPost()
 }
 
 const reset = () => {
@@ -277,11 +307,15 @@ const handleExit = () => {
     backToHomePage('classPage')
 }
 
-const generateQuizName = (data) => {
-    const filter = quiz.filter((q) => q.quizID === quizID)
-    console.log(data)
-    // quizName = filter[0].quizTitle
-    //return quizName
+const handleTakeQuiz = (quizID) => {
+    updateRouteChoose('quizTake')
+    localStorage.setItem('quizTakeID', JSON.stringify(quizID))
+} 
+
+const generateFileName = (fileID) => {
+    const result = filesList.filter((files) => files.fileID === fileID).map((files) => files.name)
+    const final = result[0].match(/[a-zA-Z0-9]/g).length > 20 ? result[0].substring(0, 20) + '...' : result[0]
+    return final
 }
 
   return (
@@ -292,7 +326,7 @@ const generateQuizName = (data) => {
                     <div className={style.changeImageContainer}>
                         <div className={style.headerImagePic}>
                             <div className='d-flex gap-2 align-items-center'>
-                                <p>Change Image</p>
+                                <p>Upload Image</p>
                             </div>
                              
                             <BiExit size={20} title='closed' cursor={'pointer'} onClick={() => setshowChangeImageModal(false)}/>
@@ -304,14 +338,36 @@ const generateQuizName = (data) => {
                 )
         }
 
+        {
+                showChangeFileModal && (
+                    <div className={style.changeFileContainer}>
+                        <div className={style.headerImagePic}>
+                            <div className='d-flex gap-2 align-items-center'>
+                                <p>Upload File</p>
+                            </div>
+                             
+                            <BiExit size={20} title='closed' cursor={'pointer'} onClick={() => setshowChangeFileModal(false)}/>
+                        </div>
+                        <input type="file" accept='.doc, .docx, .ppt, .pptx, .pdf, .txt, .rtf, .odt, .odp, .ods, .xls, .xlsx, .csv' id={style.imgUpload} onChange={handleGetFiles}/>
+                        <button className={style.btnChangeImage} onClick={handleUploadFiles}>Upload</button>
+                    </div>
+                )
+        }
+
         <div className={style.leftContent}>
             <img src={currentImageClass} alt="pic" id={style.imgClass} />
             <h2>{subjectName}</h2>
             <p>{currentClassCode}</p>
             <button className={choose === 'home' ? style.btnNavActive : style.btnNav} onClick={() => setChoose('home')}>Home</button>
             <button className={choose === 'files' ? style.btnNavActive : style.btnNav} onClick={() => setChoose('files')}>Files</button>
-            <button className={choose === 'quizSetup' ? style.btnNavActive : style.btnNav} onClick={() => setChoose('quizSetup')}>Create Quiz</button>
-            <button className={choose === 'assignment' ? style.btnNavActive : style.btnNav} onClick={() => setChoose('assignment')}>Assignment</button>
+            {
+                userAccount.acctype === 'faculty' && (
+                    <>
+                        <button className={choose === 'quizSetup' ? style.btnNavActive : style.btnNav} onClick={() => setChoose('quizSetup')}>Create Quiz</button>
+                        <button className={choose === 'assignment' ? style.btnNavActive : style.btnNav} onClick={() => setChoose('assignment')}>Assignment</button>
+                    </>
+                )
+            }
             <button className={choose === 'members' ? style.btnNavActive : style.btnNav} onClick={() => setChoose('members')}>Class Members</button>
             <button className={choose === 'exit' ? style.btnNavActive : style.btnNav} onClick={() => handleExit()}>Exit</button>
         </div>
@@ -326,7 +382,7 @@ const generateQuizName = (data) => {
                                     <img src={imageUserPost(userAccount.imageID)} alt="profile" id={style.imgDp}/>
                                     <h2 id={style.name}>{generateFullname()}</h2>
                                     <div className={style.menuUpper}>
-                                        <MdOutlineAttachment className={style.upperIcons}/>
+                                        <MdOutlineAttachment className={style.upperIcons}  onClick={() => setshowChangeFileModal(true)}/>
                                         <FaRegImages className={style.upperIcons} onClick={() => setshowChangeImageModal(true)}/>
                                         <button id={style.btnPost} onClick={handlePost}>Post <RiSendPlaneFill/></button>
                                     </div>
@@ -360,29 +416,12 @@ const generateQuizName = (data) => {
                                                 post.fileID !== 'none'  && (
                                                     <>
                                                         <div id={style.filePdf}>
-                                                            <FaFilePdf size={20} color='#F45050'/>
-                                                            <p>Module_unit_one.pdf</p>
+                                                            <SiFiles size={30} color='#F45050'/>
+                                                            <p>{generateFileName(post.fileID)}</p>
                                                             <button className={style.btnView}>View</button>
                                                             <FiDownload size={20} color='#3E3F40'/>
                                                         </div>
-                                                        <div id={style.filePdf}>
-                                                            <FaFileWord size={20} color='#00337C'/>
-                                                            <p>Module_unit_one.docx</p>
-                                                            <button className={style.btnView}>View</button>
-                                                            <FiDownload size={20} color='#3E3F40'/>
-                                                        </div>
-                                                        <div id={style.filePdf}>
-                                                            <AiFillFilePpt size={23} color='#F45050'/>
-                                                            <p>Module_unit_one.ppt</p>
-                                                            <button className={style.btnView}>View</button>
-                                                            <FiDownload size={20} color='#3E3F40'/>
-                                                        </div>
-                                                        <div id={style.filePdf}>
-                                                            <FaFileExcel size={20} color='#17594A'/>
-                                                            <p>Module_unit_one.pdf</p>
-                                                            <button className={style.btnView}>View</button>
-                                                            <FiDownload size={20} color='#3E3F40'/>
-                                                        </div>
+                                                        
                                                     </>
                                                 )
                                             }
@@ -393,7 +432,12 @@ const generateQuizName = (data) => {
                                                                 <GiNotebook size={20} color='#186F65'/>
                                                                 <p>{quiz.filter((q) => q.quizID === post.quizID).map((q)=> q.quizTitle)}</p>
                                                             </div>
-                                                            <button className={style.btnView}>Take</button>
+                                                            {
+                                                                userAccount.acctype === 'student' && (
+                                                                    <button className={style.btnView} onClick={() => handleTakeQuiz(post.quizID)}>Take</button>
+                                                                )
+                                                            }
+                                                            
                                                         </div>
                                                 )
                                             }

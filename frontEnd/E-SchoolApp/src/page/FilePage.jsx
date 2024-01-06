@@ -1,53 +1,33 @@
-import React, { useRef, useState } from 'react';
-import * as XLSX from 'xlsx';
+import DocViewer, {DocViewerRenderers} from "react-doc-viewer";
+import FileViewer from 'react-file-viewer';
 
 
 const FilePage = () => {
 
-  const [columnValues, setColumnValues] = useState([]);
+  const docs = [
+    { uri: "http://localhost:5000/file_1703608899097.xlsx" },
+  ];
 
-  const handleFileChange = async (e) => {
-    try {
-      const file = e.target.files[0];
+  return(
+    <>
+  {/* For DOCX files */}
+  <DocViewer
+    renderers={DocViewerRenderers}
+    style={{ width: '100%', height: '100%'}}
+    documents={docs}
+    pluginRenderers={DocViewerRenderers}
+  />
 
-      // Read the Excel file as an array buffer
-      const arrayBuffer = await file.arrayBuffer();
-      const data = new Uint8Array(arrayBuffer);
-      const workbook = XLSX.read(data, { type: 'array' });
+  {/* For PPT and XLS files */}
+  <FileViewer
+    fileType={'pptx'}
+    filePath={'http://localhost:5000/file_1703604974548.pptx'}
+  />
 
-      // Replace 'Sheet1' with the name of your sheet
-      const sheet_name = workbook.SheetNames[0];
-      
-      // Replace 'Column_Name' with the name of the column you want to retrieve
-      const column_name = 'Column_Name';
-
-      // Get the values from the specified column
-      const sheet = workbook.Sheets[sheet_name];
-      const columnValues = XLSX.utils.sheet_to_json(sheet, { header: 1 }) // Assumes the first row contains headers
-        .map(row => row[column_name]);
-
-      setColumnValues(columnValues);
-    } catch (error) {
-      console.error('Error reading Excel file:', error);
-    }
-  };
-
-  const handleUpload = () => {
-    console.log(columnValues)
-  }
-
-  return (
-    <div>
-      <h2>Values from Excel Column</h2>
-      <input type="file" onChange={handleFileChange} accept=".xlsx, .xls" />
-      <button onClick={handleUpload}>Upload</button>
-      <ul>
-        {columnValues.map((value, index) => (
-          <li key={index}>{value}</li>
-        ))}
-      </ul>
-    </div>
-  )
+    <iframe src={'http://localhost:5000/file_1703604974548.pptx'} width="100%" height="500px" frameBorder="0">
+      </iframe>
+</>
+  ) 
 }
 
 export default FilePage

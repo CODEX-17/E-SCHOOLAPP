@@ -1,49 +1,62 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import DocViewer, { DocViewerRenderers } from "@cyntler/react-doc-viewer";
 import mammoth from 'mammoth';
+import io from 'socket.io-client';
+const socket = io.connect('http://localhost:5000');
 
 
 const ActivityPage = () => {
 
-  const [htmlContent, setHtmlContent] = useState('');
+  const [roomID, setroomID] = useState(null)
+  const [message, setMessage] = useState()
+  const [arrayMessage, setArrayMessage] = useState(['apple', 'mango'])
+  const account = JSON.parse(localStorage.getItem('user'))
 
-  const handleFileChange = async (event) => {
-    const file = event.target.files[0];
+  useEffect(()=> {
+    
+    socket.on('testingReceived', (data) => {
+      setArrayMessage((old) => [...old, data])
+      alert(updated)
+    })
 
-    if (file) {
-      const reader = new FileReader();
+    socket.on('receiveMessage', (dataObj) => {
+      setmessageList((prevMessage) => [...prevMessage, dataObj])
+      alert(dataObj)
+    })
 
-      reader.onload = async (e) => {
-        const arrayBuffer = e.target.result;
-        const result = await convertDocxToHtml(arrayBuffer);
-        setHtmlContent(result);
-      };
+    socket.on('testingJoined', (name) => {
+      alert(name+' has successfully joined room')
+    })
+  },[])
 
-      reader.readAsArrayBuffer(file);
-    }
-  };
+  const handleSend = (e) => {
+    e.preventDefault()
+    socket.emit('testingMessage', roomID, message)
+  }
 
-  const convertDocxToHtml = async (arrayBuffer) => {
-    return new Promise((resolve, reject) => {
-      mammoth.extractRawText({ arrayBuffer: arrayBuffer })
-        .then((result) => {
-          resolve(result.value);
-        })
-        .catch((error) => {
-          reject(error);
-        });
-    });
-  };
-
+  const handleJoin = () => {
+    socket.emit('testingJoin', roomID, account.firstname)
+    console.log(account.firstname)
+  }
+  
   return (
     <div>
-      <input type="file" onChange={handleFileChange} />
-      {htmlContent && (
-        <div>
-          <h3>Word Document Viewer:</h3>
-          <div dangerouslySetInnerHTML={{ __html: htmlContent }} />
-        </div>
-      )}
+        <h1>Room ID</h1>
+        <input type="text" onChange={(e) => setroomID(e.target.value)}/>
+        {roomID && <button onClick={handleJoin}>Join</button> }
+        <form action="" onSubmit={handleSend}>
+        <h1>MESSAGE</h1>
+        <input type="text" onChange={(e) => setMessage(e.target.value)}/>
+        <button type='submit'>Send</button>
+      </form>
+      {
+        arrayMessage && (
+
+            arrayMessage.map((mess) => (
+              <p>{mess}</p>
+            ))
+        )
+      }
     </div>
   );
 };

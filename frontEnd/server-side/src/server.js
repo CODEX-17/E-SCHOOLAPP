@@ -5,8 +5,11 @@ const multer = require('multer')
 const bodyParser = require('body-parser')
 const path = require('path')
 const fs = require('fs')
-const http = require('http');
-const socketIO = require('socket.io');
+const http = require('http')
+const socketIO = require('socket.io')
+const schedule = require('node-schedule')
+
+///new
 
 const corsOptions = {
     origin: '*', // Replace with the origin of your React app
@@ -37,33 +40,57 @@ const db = mysql.createConnection({
 })
 
 
+
+
 io.on('connection', (socket) => {
-    console.log('a user connected')
-    socket.on('hello', (arg) => {
-        console.log(arg); // 'world'
+    
+    let onlineList = []
+    let currentAcctId = ''
+    const date = new Date(2023, 11, 31, 18, 48, 0)
+
+    // const job = schedule.scheduleJob('*/10 * * * * *', function(){
+    //     console.log('Its new year NEW!')
+    //     //io.emit('testLang', 'Its new year NEW!')
+    // });
+
+    socket.on('online', (acctID) => {
+        currentAcctId = acctID
+        onlineList.push(acctID)
+        io.emit('onlinePerson', onlineList)
+    })
+
+    socket.on('typing', (room, data) => {
+        socket.join(room)
+        io.to(room).emit('isTyping', data)
+    })
+
+    socket.on('testingJoin', (roomID, name) => {
+        socket.join(roomID)
+        io.emit('testingJoined', name)
     });
 
-    
-    let data = ''
-    
-    socket.on('test', (arg) => {
-        console.log(arg);
-        data = arg
-        socket.emit('message', arg)
+    socket.on('joinRoom', (room, name) => {
+        socket.join(room)
+        io.emit('joinedRoom', name+' you have been joined in ROOM:'+room)
     });
 
-   
+    socket.on('testingMessage', (room, message) => {
+        socket.join(room)
+        io.to(room).emit('testingReceived', message)
+    });
 
-    socket.on('hello', (arg1, arg2, arg3) => {
-        console.log(arg1); // 1
-        console.log(arg2); // '2'
-        console.log(arg3); // { 3: '4', 5: <Buffer 06> }
+    socket.on('sendMessage', (room, dataObj) => {
+       socket.join(room)
+       io.to(room).emit('mess', dataObj)
+       console.log(room, dataObj)
     });
 
     socket.on('disconnect', () => {
-        console.log('user disconnected');
+       onlineList = onlineList.filter((acct) => acct!== currentAcctId)
     });
 })
+
+
    
 
 
@@ -84,6 +111,28 @@ app.get('/getAccount', (req, res) => {
 
 app.get('/getMembers', (req, res) => {
     const query = "SELECT * FROM members"
+    db.query(query, (error, data, field) => {
+        if (error) {
+            res.json(error)
+        } else {
+            res.json(data)
+        }
+    })
+})
+
+app.get('/getMessages', (req, res) => {
+    const query = "SELECT * FROM messages"
+    db.query(query, (error, data, field) => {
+        if (error) {
+            res.json(error)
+        } else {
+            res.json(data)
+        }
+    })
+})
+
+app.get('/getFriend', (req, res) => {
+    const query = "SELECT * FROM friends"
     db.query(query, (error, data, field) => {
         if (error) {
             res.json(error)
@@ -187,6 +236,31 @@ app.post('/choices', (req, res) => {
                 })
             }
         })    
+})
+
+app.post('/saveMessages', (req, res) => {
+   
+    const messageID = req.body.messageID
+    const roomID =  req.body.roomID
+    const messageContent =  req.body.messageContent
+    const messageSender =  req.body.messageSender
+    const messageReceiver =  req.body.messageReceiver
+    const date =  req.body.date
+    const time =  req.body.time
+
+    console.log(date)
+
+    const query = "INSERT INTO messages (messageID, roomID, messageContent, messageSender, messageReceiver, date, time) VALUES (?,?,?,?,?,?,?)"
+
+    db.query(query, [messageID, roomID, messageContent, messageSender, messageReceiver, date, time], (error, data, field) => {
+        if (error) {
+            res.json(error)
+        }else {
+            res.json({
+                message: 'message added!'
+            })
+        }
+    })    
 })
 
 app.post('/quiz', (req, res) => {
@@ -420,6 +494,30 @@ app.post('/upload', upload.single('image'), (req, res) => {
       res.json({ message: 'Image uploaded successfully' });
     });
   });
+
+  app.post('/uploadFile', upload.single('file'), (req, res) => {
+
+    if (!req.file) {
+      return res.status(400).json({ message: 'No file uploaded' });
+    }
+  
+    const { originalname, mimetype, filename } = req.file;
+    const fileID = req.body.fileID
+  
+    console.log('File properties:', originalname, mimetype, filename);
+    const file = {
+      name: originalname,
+      type: mimetype,
+      data: filename,
+      fileID: fileID,
+    };
+  
+    db.query('INSERT INTO files SET ?', file, (err) => {
+      if (err) throw err;
+      console.log('file uploaded to the database');
+      res.json({ message: 'file uploaded successfully' });
+    });
+  });
   
   app.get('/ ', (req, res) => {
     db.query('SELECT * FROM image WHERE id = 1', (err, result) => {
@@ -454,6 +552,18 @@ app.post('/upload', upload.single('image'), (req, res) => {
 
   app.get('/getALLImages', (req, res) => {
     const query = 'SELECT * FROM image'
+
+    db.query(query, (err, data, result) => {
+      if (err) {
+        res.json(err)
+      } else {
+        res.send(data);
+      }
+    });
+  });
+
+  app.get('/getALLfiles', (req, res) => {
+    const query = 'SELECT * FROM files'
 
     db.query(query, (err, data, result) => {
       if (err) {

@@ -18,12 +18,15 @@ import { useImageStore } from '../stores/useImageStore'
 import { usePostStore } from '../stores/usePostStore'
 import { useMemberStore } from '../stores/useMemberStore'
 import FilePage from './FilePage'
-import io from 'socket.io-client';
 import { useQuestionsStore } from '../stores/useQuestionsStore'
 import { useFillLayoutStore } from '../stores/useFillLayoutStore'
 import { useChoicesStore } from '../stores/useChoicesStore'
 import { useQuizStore } from '../stores/useQuizStore'
-
+import { useMessageStore } from '../stores/useMessageStore'
+import { useFriendStore } from '../stores/useFriendStore'
+import QuizTake from './QuizTake'
+import { useFilesStore } from '../stores/useFilesStore'
+import io from 'socket.io-client';
 const socket = io.connect('http://localhost:5000');
 
 const HomePage = () => {
@@ -35,18 +38,14 @@ const HomePage = () => {
   const { getFillLayout } = useFillLayoutStore()
   const { getChoices } = useChoicesStore()
   const { getQuiz } = useQuizStore()
+  const { getMessages } = useMessageStore()
+  const { getFriend } = useFriendStore()
+  const { getFiles } = useFilesStore()
 
   const navigate = useNavigate()
   
-
   useEffect(() => {
-    socket.emit('hello', 'world');
-    // socket.on('message', (msg) => {
-    //   alert(msg)
-    // })
-  },[])
-
-  useEffect(() => {
+    getFriend()
     getQuiz()
     getChoices()
     getQuestion()
@@ -56,6 +55,8 @@ const HomePage = () => {
     getPost()
     getImages()
     getAccounts()
+    getMessages()
+    getFiles()
     const authtoken = localStorage.getItem('authtoken')
     const userAccount = localStorage.getItem('user') 
     
@@ -63,6 +64,12 @@ const HomePage = () => {
         navigate('/')
     }
 
+  },[])
+
+  useEffect(() => {
+    const currentUser = JSON.parse(localStorage.getItem('user'));
+    console.log(currentUser)
+    socket.emit('online', currentUser.acctID);
   },[])
 
   const getClassesAll = () => {
@@ -96,7 +103,7 @@ const HomePage = () => {
             {routeChoose === 'createUser' && <CreateUser/>}
             {routeChoose === 'quizDev' && <Quiz/>}
             {routeChoose === 'class' && <ClassPage/>}
-            {routeChoose === 'previewQuiz' && <PreviewQuiz/>}
+            {routeChoose === 'quizTake' && <QuizTake/>}
             {routeChoose === 'manageAccount' && <ManageAccout/>}
             {routeChoose === 'file' && <FilePage/>}
 

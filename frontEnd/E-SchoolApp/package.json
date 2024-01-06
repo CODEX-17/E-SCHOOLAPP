@@ -24,6 +24,7 @@
     "react": "^18.2.0",
     "react-doc-viewer": "^0.1.5",
     "react-dom": "^18.2.0",
+    "react-file-viewer": "^1.2.1",
     "react-icons": "^4.11.0",
     "react-loader-spinner": "^5.4.5",
     "react-router-dom": "^6.17.0",
@@ -44,5 +45,10 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.3",
     "vite": "^4.4.5"
-  }
+  },
+  "description": "This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.",
+  "main": "vite.config.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }
